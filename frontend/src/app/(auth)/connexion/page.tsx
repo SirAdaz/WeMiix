@@ -65,7 +65,6 @@ export default function ConnexionPage() {
 
   return (
     <div className="w-full max-w-sm py-12">
-      {/* Logo */}
       <div className="flex justify-center mb-8">
         <Link href="/" className="select-none">
           <span
@@ -84,7 +83,6 @@ export default function ConnexionPage() {
         className="w-full rounded-2xl p-6 border"
         style={{ background: "var(--bg-card)", borderColor: "var(--bg-muted)" }}
       >
-        {/* Titre */}
         <h1
           className="text-xl font-black text-center mb-6"
           style={{ color: "var(--light)" }}
@@ -92,7 +90,6 @@ export default function ConnexionPage() {
           Rejoins la fête 🎉
         </h1>
 
-        {/* Bouton Spotify */}
         <button
           onClick={handleSpotify}
           disabled={loading}
@@ -103,7 +100,6 @@ export default function ConnexionPage() {
           Continuer avec Spotify
         </button>
 
-        {/* Séparateur */}
         <div className="flex items-center gap-3 my-5">
           <hr className="flex-1" style={{ borderColor: "var(--bg-muted)" }} />
           <span className="text-xs font-semibold" style={{ color: "var(--bg-muted)" }}>
@@ -112,7 +108,6 @@ export default function ConnexionPage() {
           <hr className="flex-1" style={{ borderColor: "var(--bg-muted)" }} />
         </div>
 
-        {/* Formulaire */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
             <label
@@ -127,7 +122,7 @@ export default function ConnexionPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="toi@exemple.fr"
-              className="w-full rounded-xl px-4 py-3 text-sm outline-none border focus:border-pink-500 transition-colors"
+              className="w-full rounded-xl px-4 py-3 text-sm outline-none border transition-colors"
               style={{
                 background: "var(--bg-deep)",
                 borderColor: "var(--bg-muted)",
@@ -149,7 +144,7 @@ export default function ConnexionPage() {
               onChange={(e) => setUsername(e.target.value)}
               required
               placeholder="TonPseudo"
-              className="w-full rounded-xl px-4 py-3 text-sm outline-none border focus:border-pink-500 transition-colors"
+              className="w-full rounded-xl px-4 py-3 text-sm outline-none border transition-colors"
               style={{
                 background: "var(--bg-deep)",
                 borderColor: "var(--bg-muted)",
@@ -178,7 +173,6 @@ export default function ConnexionPage() {
         </form>
       </div>
 
-      {/* Mode invité */}
       <div className="text-center mt-6">
         <button
           onClick={handleGuest}
