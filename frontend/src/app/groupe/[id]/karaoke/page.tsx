@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { use, useEffect, useRef, useState, useCallback } from "react";
 import { fetchLyrics, getActiveLine, type LyricLine } from "@/lib/lyrics";
 
 interface Singer {
@@ -25,7 +25,8 @@ const mockTrack = {
 
 type KaraokeView = "search" | "singing" | "vote" | "scores";
 
-export default function KaraokePage({ params }: { params: { id: string } }) {
+export default function KaraokePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id: _groupId } = use(params);
   const [view, setView] = useState<KaraokeView>("search");
   const [lyrics, setLyrics] = useState<LyricLine[]>([]);
   const [currentTime, setCurrentTime] = useState(0);

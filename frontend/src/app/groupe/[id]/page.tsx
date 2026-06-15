@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { use, useState } from "react";
 
 interface Member {
   id: string;
@@ -19,9 +19,9 @@ const mockMembers: Member[] = [
   { id: "4", name: "Max", avatar: "🎧", role: "guest", score: 440 },
 ];
 
-export default function GroupePage({ params }: { params: { id: string } }) {
+export default function GroupePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id: groupCode } = use(params);
   const [copied, setCopied] = useState(false);
-  const groupCode = params.id;
 
   function copyLink() {
     navigator.clipboard?.writeText(

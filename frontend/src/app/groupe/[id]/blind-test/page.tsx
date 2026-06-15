@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 
 type Genre = "all" | "rap" | "pop" | "rock" | "electro" | "rnb" | "variete";
 type Difficulty = "easy" | "normal" | "hard";
@@ -54,7 +54,8 @@ const TIMER_BY_DIFFICULTY: Record<Difficulty, number> = {
   hard: 10,
 };
 
-export default function BlindTestPage({ params }: { params: { id: string } }) {
+export default function BlindTestPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id: _groupId } = use(params);
   const [view, setView] = useState<BlindTestView>("config");
   const [genre, setGenre] = useState<Genre>("all");
   const [difficulty, setDifficulty] = useState<Difficulty>("normal");

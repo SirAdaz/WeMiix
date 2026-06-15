@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { use, useState } from "react";
 
 interface PlaylistTrack {
   id: string;
@@ -40,7 +40,8 @@ const initialTracks: PlaylistTrack[] = [
   },
 ];
 
-export default function PlaylistPage({ params }: { params: { id: string } }) {
+export default function PlaylistPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id: _groupId } = use(params);
   const [tracks, setTracks] = useState<PlaylistTrack[]>(initialTracks);
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState<{ title: string; artist: string } | null>(null);

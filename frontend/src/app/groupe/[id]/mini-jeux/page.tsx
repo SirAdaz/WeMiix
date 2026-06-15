@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 
 type GameId = "name-that-tune" | "quiz" | "lobby";
 type Difficulty = "easy" | "normal" | "hard";
@@ -56,7 +56,8 @@ const mockQuestions: QuizQuestion[] = [
 
 const COUNTDOWN_START = 3;
 
-export default function MiniJeuxPage({ params }: { params: { id: string } }) {
+export default function MiniJeuxPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id: _groupId } = use(params);
   const [view, setView] = useState<GameId | "lobby" | "scores">("lobby");
 
   return (
