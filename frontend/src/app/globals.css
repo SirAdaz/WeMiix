@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+:root {
+  /* Charte WeMiix */
+  --bg-deep:    #051825;
+  --bg-card:    #162936;
+  --bg-muted:   #3b5265;
+  --pink:       #ff2969;
+  --green:      #27e965;
+  --light:      #efefef;
+  --black:      #000000;
+  --indigo:     #1800ad;
+  --red:        #ff0000;
+}
+
+@theme inline {
+  --color-bg-deep:  var(--bg-deep);
+  --color-bg-card:  var(--bg-card);
+  --color-bg-muted: var(--bg-muted);
+  --color-pink:     var(--pink);
+  --color-green:    var(--green);
+  --color-light:    var(--light);
+  --color-indigo:   var(--indigo);
+  --font-sans:      var(--font-league-spartan);
+  --font-serif:     var(--font-bree-serif);
+}
+
+body {
+  background: var(--bg-deep);
+  color: var(--light);
+  font-family: var(--font-league-spartan), "League Spartan", Arial, sans-serif;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50%       { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.float-anim  { animation: float 4s ease-in-out infinite; }
+.spin-slow   { animation: spin-slow 8s linear infinite; }
+
+.gradient-text-brand {
+  background: linear-gradient(135deg, var(--green), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow-pink  { box-shadow: 0 0 24px rgba(255, 41, 105, 0.4); }
+.glow-green { box-shadow: 0 0 24px rgba(39, 233, 101, 0.4); }
+
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+}

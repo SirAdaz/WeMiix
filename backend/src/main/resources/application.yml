@@ -1,0 +1,71 @@
+spring:
+  application:
+    name: wemiix-backend
+
+  # Configuration PostgreSQL
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:postgres}:5432/${POSTGRES_DB:wemiix_db}
+    username: ${POSTGRES_USER:wemiix_user}
+    password: ${POSTGRES_PASSWORD:changeme}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  # Configuration MongoDB (optionnel — mini-jeux, sessions de jeu)
+  data:
+    mongodb:
+      uri: mongodb://${MONGO_USER:wemiix_user}:${MONGO_PASSWORD:changeme}@${MONGO_HOST:mongodb}:27017/${MONGO_DB:wemiix_games}?authSource=admin
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: 6379
+      password: ${REDIS_PASSWORD:changeme}
+
+  # Gestion des sessions via Redis
+  session:
+    store-type: redis
+    timeout: 86400
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# Spotify OAuth
+spotify:
+  client-id: ${SPOTIFY_CLIENT_ID:}
+  client-secret: ${SPOTIFY_CLIENT_SECRET:}
+  api-base-url: https://api.spotify.com/v1
+  auth-url: https://accounts.spotify.com
+
+# API paroles
+lyrics:
+  lrclib-url: https://lrclib.net/api
+  lyricsovh-url: https://api.lyrics.ovh/v1
+
+# JWT / Better Auth
+auth:
+  secret: ${AUTH_SECRET:changeme_at_least_32_chars_long_secret}
+  token-expiration: 86400
+
+# Actuator pour les healthchecks Docker
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.wemiix: DEBUG
+    org.springframework.security: INFO
+    org.springframework.web.socket: INFO
