@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--bg-deep)" }}>
@@ -6,15 +8,20 @@ export default function Home() {
       <nav className="flex items-center justify-between px-6 py-4 border-b border-white/5">
         <WeMiixLogo />
         <div className="flex items-center gap-3">
-          <button className="text-sm font-semibold text-light/60 hover:text-light transition-colors px-4 py-2">
+          <Link
+            href="/connexion"
+            className="text-sm font-semibold hover:text-light transition-colors px-4 py-2"
+            style={{ color: "var(--bg-muted)" }}
+          >
             Connexion
-          </button>
-          <button
+          </Link>
+          <Link
+            href="/groupe"
             className="text-sm font-bold px-5 py-2.5 rounded-full text-white transition-all hover:scale-105 glow-pink"
             style={{ background: "var(--pink)" }}
           >
             Commencer
-          </button>
+          </Link>
         </div>
       </nav>
 
@@ -38,18 +45,20 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 w-full max-w-sm">
-          <button
-            className="flex-1 py-3.5 rounded-full font-bold text-white text-base transition-all hover:scale-105 glow-pink"
+          <Link
+            href="/groupe"
+            className="flex-1 py-3.5 rounded-full font-bold text-white text-base transition-all hover:scale-105 glow-pink text-center"
             style={{ background: "var(--pink)" }}
           >
             🚀 Lancer une session
-          </button>
-          <button
-            className="flex-1 py-3.5 rounded-full font-bold text-base transition-all hover:scale-105 glow-green"
+          </Link>
+          <Link
+            href="/groupe"
+            className="flex-1 py-3.5 rounded-full font-bold text-base transition-all hover:scale-105 glow-green text-center"
             style={{ background: "var(--green)", color: "var(--bg-deep)" }}
           >
             Rejoindre
-          </button>
+          </Link>
         </div>
 
         <div className="flex items-center gap-2 text-sm" style={{ color: "var(--bg-muted)" }}>
@@ -107,12 +116,13 @@ export default function Home() {
               Accède à des millions de titres. Connecte ton compte pour une expérience complète.
             </p>
           </div>
-          <button
+          <Link
+            href="/connexion"
             className="px-5 py-2.5 rounded-full font-bold text-sm text-white whitespace-nowrap transition-all hover:scale-105"
             style={{ background: "#1DB954" }}
           >
             Connecter Spotify
-          </button>
+          </Link>
         </div>
       </section>
 

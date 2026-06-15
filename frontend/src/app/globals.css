@@ -60,3 +60,20 @@ body {
 .card-hover:hover {
   transform: translateY(-4px);
 }
+
+/* Barre de son animée */
+@keyframes grow {
+  from { transform: scaleY(0.3); }
+  to   { transform: scaleY(1); }
+}
+
+/* Mode daltonien */
+.colorblind {
+  --pink:  #d45c00;
+  --green: #0077bb;
+}
+
+/* Safe area padding pour le bottom nav */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+}

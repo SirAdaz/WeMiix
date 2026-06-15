@@ -166,3 +166,25 @@ services:
       timeout: 10s
       retries: 5
       start_period: 60s
+
+  # -----------------------------------------------
+  # Nginx — Reverse proxy (80 → frontend / backend)
+  # -----------------------------------------------
+  nginx:
+    image: nginx:alpine
+    container_name: wemiix-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - wemiix-network
+    depends_on:
+      - backend
+      - frontend
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

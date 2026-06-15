@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { League_Spartan, Bree_Serif } from "next/font/google";
 import "./globals.css";
+import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 
 const leagueSpartan = League_Spartan({
   variable: "--font-league-spartan",
@@ -16,7 +17,31 @@ const breeSerif = Bree_Serif({
 
 export const metadata: Metadata = {
   title: "WeMiix — L'app musicale festive",
-  description: "Karaoké, blind test, playlists collaboratives et mini-jeux musicaux en temps réel avec vos amis.",
+  description:
+    "Karaoké, blind test, playlists collaboratives et mini-jeux musicaux en temps réel avec vos amis.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "WeMiix",
+  },
+  icons: {
+    icon: "/icons/icon.svg",
+    apple: "/icons/icon-192.png",
+  },
+  openGraph: {
+    title: "WeMiix — L'app musicale festive",
+    description: "Karaoké, blind test, mini-jeux en temps réel avec tes amis.",
+    type: "website",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ff2969",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -29,7 +54,10 @@ export default function RootLayout({
       lang="fr"
       className={`${leagueSpartan.variable} ${breeSerif.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ServiceWorkerRegistration />
+        {children}
+      </body>
     </html>
   );
 }

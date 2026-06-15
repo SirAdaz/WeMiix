@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#051825"/>
+  <!-- Vinyl record -->
+  <circle cx="256" cy="256" r="180" fill="#162936" stroke="#3b5265" stroke-width="4"/>
+  <circle cx="256" cy="256" r="150" fill="none" stroke="#3b5265" stroke-width="3"/>
+  <circle cx="256" cy="256" r="120" fill="none" stroke="#3b5265" stroke-width="3"/>
+  <circle cx="256" cy="256" r="90"  fill="none" stroke="#3b5265" stroke-width="3"/>
+  <!-- Label central -->
+  <circle cx="256" cy="256" r="64" fill="#051825"/>
+  <circle cx="256" cy="256" r="58" fill="none" stroke="#ff2969" stroke-width="6"/>
+  <!-- Trou -->
+  <circle cx="256" cy="256" r="12" fill="#3b5265"/>
+  <!-- Reflet vert -->
+  <path d="M 120 160 Q 200 100 290 130" fill="none" stroke="#27e965" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+  <!-- WM text hint -->
+  <text x="256" y="248" text-anchor="middle" font-family="Arial" font-size="28" font-weight="900" fill="#efefef">We</text>
+  <text x="256" y="278" text-anchor="middle" font-family="Arial" font-size="28" font-weight="900" fill="#ff2969">Miix</text>
+</svg>
