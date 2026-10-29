@@ -37,6 +37,11 @@ server:
   servlet:
     context-path: /
 
+# URLs publiques (CORS, liens d'invitation, redirections OAuth)
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
+  backend-public-url: ${BACKEND_PUBLIC_URL:http://localhost:8080}
+
 # Spotify OAuth
 spotify:
   client-id: ${SPOTIFY_CLIENT_ID:}

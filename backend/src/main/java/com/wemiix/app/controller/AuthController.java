@@ -33,8 +33,6 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private static final String SPOTIFY_REDIRECT_URI = "http://localhost:8080/api/auth/spotify/callback";
-    private static final String FRONTEND_CALLBACK_URI = "http://localhost:3000/auth/callback";
     private static final String SPOTIFY_SCOPES = "streaming user-read-email user-read-private";
 
     private final AuthService authService;
@@ -45,6 +43,8 @@ public class AuthController {
     private final String spotifyTokenUrl;
     private final String spotifyProfileUrl;
     private final WebClient webClient;
+    private final String spotifyRedirectUri;
+    private final String frontendCallbackUri;
 
     public AuthController(AuthService authService,
                           JwtService jwtService,
@@ -52,7 +52,9 @@ public class AuthController {
                           @Value("${spotify.client-id}") String spotifyClientId,
                           @Value("${spotify.client-secret}") String spotifyClientSecret,
                           @Value("${spotify.auth-url}") String spotifyAuthUrl,
-                          @Value("${spotify.api-base-url}") String spotifyApiBaseUrl) {
+                          @Value("${spotify.api-base-url}") String spotifyApiBaseUrl,
+                          @Value("${app.backend-public-url}") String backendPublicUrl,
+                          @Value("${app.frontend-url}") String frontendUrl) {
         this.authService = authService;
         this.jwtService = jwtService;
         this.userRepository = userRepository;
@@ -61,6 +63,8 @@ public class AuthController {
         this.spotifyTokenUrl = spotifyAuthUrl + "/api/token";
         this.spotifyProfileUrl = spotifyApiBaseUrl + "/me";
         this.webClient = WebClient.create();
+        this.spotifyRedirectUri = backendPublicUrl + "/api/auth/spotify/callback";
+        this.frontendCallbackUri = frontendUrl + "/auth/callback";
     }
 
     // ── DTOs ─────────────────────────────────────────────────────────────────
@@ -111,7 +115,7 @@ public class AuthController {
         String url = "https://accounts.spotify.com/authorize"
             + "?client_id=" + spotifyClientId
             + "&response_type=code"
-            + "&redirect_uri=" + SPOTIFY_REDIRECT_URI
+            + "&redirect_uri=" + spotifyRedirectUri
             + "&scope=" + SPOTIFY_SCOPES.replace(" ", "%20");
         return ResponseEntity.ok(Map.of("authorizationUrl", url));
     }
@@ -125,7 +129,7 @@ public class AuthController {
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.add("grant_type", "authorization_code");
         formData.add("code", code);
-        formData.add("redirect_uri", SPOTIFY_REDIRECT_URI);
+        formData.add("redirect_uri", spotifyRedirectUri);
 
         JsonNode tokenResponse = webClient.post()
             .uri(spotifyTokenUrl)
@@ -162,7 +166,7 @@ public class AuthController {
             spotifyId, email, displayName, spotifyAccessToken, spotifyRefreshToken
         );
 
-        URI redirectUri = URI.create(FRONTEND_CALLBACK_URI + "?token=" + tokens.accessToken());
+        URI redirectUri = URI.create(frontendCallbackUri + "?token=" + tokens.accessToken());
         return ResponseEntity.status(HttpStatus.FOUND)
             .location(redirectUri)
             .build();

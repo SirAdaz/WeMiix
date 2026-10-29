@@ -2,6 +2,7 @@ package com.wemiix.app.config;
 
 import com.wemiix.app.service.JwtService;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,9 +24,11 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtService jwtService;
+    private final String frontendUrl;
 
-    public SecurityConfig(JwtService jwtService) {
+    public SecurityConfig(JwtService jwtService, @Value("${app.frontend-url}") String frontendUrl) {
         this.jwtService = jwtService;
+        this.frontendUrl = frontendUrl;
     }
 
     @Bean
@@ -59,7 +62,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:3000", "https://*.wemiix.app"));
+        configuration.setAllowedOriginPatterns(List.of(frontendUrl, "https://*.wemiix.app"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
