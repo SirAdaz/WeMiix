@@ -33,7 +33,7 @@ export default function ProfilPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] gap-4 px-6">
         <p className="text-sm" style={{ color: "var(--bg-muted)" }}>
-          Tu n'es pas connecté.
+          Tu n&apos;es pas connecté.
         </p>
       </div>
     );

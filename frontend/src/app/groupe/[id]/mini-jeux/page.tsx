@@ -1,6 +1,7 @@
 "use client";
 
 import { use, useEffect, useRef, useState } from "react";
+import SoundBars from "@/components/SoundBars";
 
 type GameId = "name-that-tune" | "quiz" | "lobby";
 type Difficulty = "easy" | "normal" | "hard";
@@ -318,11 +319,7 @@ function NameThatTune({ onBack }: { onBack: () => void }) {
         <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: "var(--bg-deep)" }}>
           <span className="text-3xl">🎵</span>
         </div>
-        <div className="flex items-end gap-1 h-6">
-          {Array.from({ length: 8 }, (_, i) => (
-            <div key={i} className="w-1.5 rounded-full" style={{ background: "var(--pink)", height: `${40 + Math.random() * 60}%` }} />
-          ))}
-        </div>
+        <SoundBars count={8} color="var(--pink)" minHeight={40} className="h-6" />
         {revealed && (
           <div className="text-center mt-2">
             <p className="font-black" style={{ color: "var(--green)" }}>{current.title}</p>
