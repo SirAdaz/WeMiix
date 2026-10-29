@@ -15,7 +15,7 @@ import {
 interface AuthContextValue {
   user: User | null;
   isLoading: boolean;
-  login: (email: string, username: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
   loginWithSpotify: () => void;
   logout: () => Promise<void>;
   isGuest: boolean;
@@ -67,11 +67,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     fetchCurrentUser();
   }, [fetchCurrentUser]);
 
-  const login = useCallback(async (email: string, username: string) => {
+  const login = useCallback(async (email: string, password: string) => {
     const res = await fetch(`${BASE_URL}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, username }),
+      body: JSON.stringify({ email, password }),
     });
 
     if (!res.ok) {
@@ -96,8 +96,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         const res = await fetch(`${BASE_URL}/api/auth/spotify/authorize`);
         if (!res.ok) throw new Error("Impossible de contacter Spotify");
-        const data = (await res.json()) as { url: string };
-        window.location.href = data.url;
+        const data = (await res.json()) as { authorizationUrl: string };
+        window.location.href = data.authorizationUrl;
       } catch (err) {
         console.error("loginWithSpotify:", err);
       }
