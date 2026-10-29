@@ -36,7 +36,7 @@ export default function GroupePage({ params }: { params: Promise<{ id: string }>
       {/* Header groupe */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
             Groupe
           </p>
           <h1 className="text-2xl font-black" style={{ color: "var(--light)" }}>
@@ -54,7 +54,7 @@ export default function GroupePage({ params }: { params: Promise<{ id: string }>
           <button
             onClick={copyLink}
             className="text-xs font-semibold px-3 py-1.5 rounded-full transition-colors border"
-            style={{ borderColor: "var(--bg-muted)", color: copied ? "var(--green)" : "var(--bg-muted)" }}
+            style={{ borderColor: "var(--bg-muted)", color: copied ? "var(--green)" : "var(--text-muted)" }}
           >
             {copied ? "✓ Copié" : "📋 Inviter"}
           </button>
@@ -63,7 +63,7 @@ export default function GroupePage({ params }: { params: Promise<{ id: string }>
 
       {/* Membres */}
       <section className="mb-6">
-        <h2 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+        <h2 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
           Membres ({mockMembers.length})
         </h2>
         <div className="flex flex-col gap-2">
@@ -83,11 +83,11 @@ export default function GroupePage({ params }: { params: Promise<{ id: string }>
                     </span>
                   )}
                 </p>
-                <p className="text-xs" style={{ color: "var(--bg-muted)" }}>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>
                   {m.score} pts
                 </p>
               </div>
-              <span className="text-sm font-black" style={{ color: i === 0 ? "var(--green)" : "var(--bg-muted)" }}>
+              <span className="text-sm font-black" style={{ color: i === 0 ? "var(--green)" : "var(--text-muted)" }}>
                 #{i + 1}
               </span>
             </div>
@@ -97,7 +97,7 @@ export default function GroupePage({ params }: { params: Promise<{ id: string }>
 
       {/* Raccourcis jeux */}
       <section>
-        <h2 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+        <h2 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
           Lancer un jeu
         </h2>
         <div className="grid grid-cols-2 gap-3">
@@ -163,7 +163,7 @@ function GameShortcut({
       <p className="font-bold text-sm" style={{ color: accent }}>
         {label}
       </p>
-      <p className="text-xs" style={{ color: "var(--bg-muted)" }}>
+      <p className="text-xs" style={{ color: "var(--text-muted)" }}>
         {desc}
       </p>
     </Link>

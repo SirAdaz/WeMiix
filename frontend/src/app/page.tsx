@@ -11,7 +11,7 @@ export default function Home() {
           <Link
             href="/connexion"
             className="text-sm font-semibold hover:text-light transition-colors px-4 py-2"
-            style={{ color: "var(--bg-muted)" }}
+            style={{ color: "var(--text-muted)" }}
           >
             Connexion
           </Link>
@@ -38,7 +38,7 @@ export default function Home() {
             <br />
             <span style={{ color: "var(--light)" }}>ta soirée</span>
           </h1>
-          <p className="max-w-md text-base leading-relaxed" style={{ color: "var(--bg-muted)" }}>
+          <p className="max-w-md text-base leading-relaxed" style={{ color: "var(--text-muted)" }}>
             Karaoké, blind test et mini-jeux musicaux en temps réel avec tes amis.
             Une seule app, une soirée inoubliable.
           </p>
@@ -61,7 +61,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 text-sm" style={{ color: "var(--bg-muted)" }}>
+        <div className="flex items-center gap-2 text-sm" style={{ color: "var(--text-muted)" }}>
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
           Temps réel · WebSocket · Gratuit
         </div>
@@ -71,7 +71,7 @@ export default function Home() {
       <section className="px-6 pb-16 w-full max-w-2xl mx-auto">
         <p
           className="text-center text-xs font-bold uppercase tracking-widest mb-6"
-          style={{ color: "var(--bg-muted)" }}
+          style={{ color: "var(--text-muted)" }}
         >
           Ce qu&apos;on fait
         </p>
@@ -112,7 +112,7 @@ export default function Home() {
           <span className="text-4xl">🎧</span>
           <div className="flex-1 text-center sm:text-left">
             <p className="font-bold" style={{ color: "var(--light)" }}>Propulsé par Spotify</p>
-            <p className="text-sm mt-1" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
               Accède à des millions de titres. Connecte ton compte pour une expérience complète.
             </p>
           </div>
@@ -129,7 +129,7 @@ export default function Home() {
       {/* ── Footer ── */}
       <footer
         className="mt-auto border-t px-6 py-6 text-center text-sm font-semibold"
-        style={{ borderColor: "var(--bg-card)", color: "var(--bg-muted)" }}
+        style={{ borderColor: "var(--bg-card)", color: "var(--text-muted)" }}
       >
         WeMiix — Faites de chaque soirée une expérience musicale inoubliable 🎉
       </footer>
@@ -197,7 +197,7 @@ function FeatureCard({
       <h3 className="font-bold text-base mb-1" style={{ color: accent }}>
         {title}
       </h3>
-      <p className="text-sm leading-relaxed" style={{ color: "var(--bg-muted)" }}>
+      <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>
         {description}
       </p>
     </div>

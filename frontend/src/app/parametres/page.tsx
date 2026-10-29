@@ -77,7 +77,7 @@ export default function ParametresPage() {
             <div className="text-center">
               <p className="text-2xl mb-1">🔒</p>
               <p className="font-black" style={{ color: "var(--light)" }}>Code parental</p>
-              <p className="text-xs mt-1" style={{ color: "var(--bg-muted)" }}>
+              <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
                 Entre le PIN pour passer en mode adulte
               </p>
             </div>
@@ -96,7 +96,7 @@ export default function ParametresPage() {
               <button type="submit" className="w-full py-3 rounded-full font-bold text-white glow-pink" style={{ background: "var(--pink)" }}>
                 Confirmer
               </button>
-              <button type="button" onClick={() => { setShowPinModal(false); setPin(""); setPinError(""); }} className="text-sm text-center" style={{ color: "var(--bg-muted)" }}>
+              <button type="button" onClick={() => { setShowPinModal(false); setPin(""); setPinError(""); }} className="text-sm text-center" style={{ color: "var(--text-muted)" }}>
                 Annuler
               </button>
             </form>
@@ -106,7 +106,7 @@ export default function ParametresPage() {
 
       <div className="px-4 pt-6 pb-20 max-w-lg mx-auto">
         <div className="flex items-center gap-3 mb-6">
-          <Link href="/" className="text-sm" style={{ color: "var(--bg-muted)" }}>← Retour</Link>
+          <Link href="/" className="text-sm" style={{ color: "var(--text-muted)" }}>← Retour</Link>
           {saved && <span className="text-xs font-bold" style={{ color: "var(--green)" }}>✓ Sauvegardé</span>}
         </div>
 
@@ -114,7 +114,7 @@ export default function ParametresPage() {
 
         {/* MODE ENFANT / ADULTE */}
         <section className="mb-6">
-          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
             Mode d&apos;utilisation
           </p>
           <div
@@ -146,7 +146,7 @@ export default function ParametresPage() {
             {mode === "adult" && (
               <div
                 className="text-xs px-3 py-2 rounded-xl"
-                style={{ background: "rgba(59,82,101,0.3)", color: "var(--bg-muted)" }}
+                style={{ background: "rgba(59,82,101,0.3)", color: "var(--text-muted)" }}
               >
                 ℹ️ En mode enfant, un PIN parental (1234 par défaut) protège le retour en mode adulte
               </div>
@@ -156,7 +156,7 @@ export default function ParametresPage() {
 
         {/* SPOTIFY */}
         <section className="mb-6">
-          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
             Connexion musicale
           </p>
           <div
@@ -166,7 +166,7 @@ export default function ParametresPage() {
             <span className="text-3xl">🎧</span>
             <div className="flex-1">
               <p className="font-bold text-sm" style={{ color: "var(--light)" }}>Spotify</p>
-              <p className="text-xs" style={{ color: "var(--bg-muted)" }}>
+              <p className="text-xs" style={{ color: "var(--text-muted)" }}>
                 {spotifyConnected ? "Connecté — lecture et recherche activées" : "Non connecté — connexion requise pour la lecture"}
               </p>
             </div>
@@ -175,7 +175,7 @@ export default function ParametresPage() {
               className="text-xs font-bold px-4 py-2 rounded-full transition-all hover:scale-105"
               style={{
                 background: spotifyConnected ? "rgba(59,82,101,0.4)" : "#1DB954",
-                color: spotifyConnected ? "var(--bg-muted)" : "#fff",
+                color: spotifyConnected ? "var(--text-muted)" : "#fff",
               }}
             >
               {spotifyConnected ? "Déconnecter" : "Connecter"}
@@ -185,7 +185,7 @@ export default function ParametresPage() {
 
         {/* ACCESSIBILITÉ */}
         <section className="mb-6">
-          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
             Accessibilité (WCAG)
           </p>
           <div
@@ -196,7 +196,7 @@ export default function ParametresPage() {
             <div className="flex items-center gap-4 px-4 py-4 border-b" style={{ borderColor: "var(--bg-muted)" }}>
               <div className="flex-1">
                 <p className="font-bold text-sm" style={{ color: "var(--light)" }}>Taille du texte</p>
-                <p className="text-xs" style={{ color: "var(--bg-muted)" }}>{fontSize}%</p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{fontSize}%</p>
               </div>
               <input
                 type="range"
@@ -213,7 +213,7 @@ export default function ParametresPage() {
             <div className="flex items-center gap-4 px-4 py-4">
               <div className="flex-1">
                 <p className="font-bold text-sm" style={{ color: "var(--light)" }}>Mode daltonien</p>
-                <p className="text-xs" style={{ color: "var(--bg-muted)" }}>Adapte les couleurs pour les daltoniens</p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>Adapte les couleurs pour les daltoniens</p>
               </div>
               <Toggle value={colorBlind} onChange={handleColorBlind} />
             </div>
@@ -222,7 +222,7 @@ export default function ParametresPage() {
 
         {/* COMPTE */}
         <section className="mb-6">
-          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
             Compte
           </p>
           <div
@@ -236,17 +236,17 @@ export default function ParametresPage() {
             >
               <span className="text-xl">🔐</span>
               <span className="flex-1 text-sm font-bold" style={{ color: "var(--light)" }}>Connexion / Inscription</span>
-              <span style={{ color: "var(--bg-muted)" }}>›</span>
+              <span style={{ color: "var(--text-muted)" }}>›</span>
             </Link>
             <button className="w-full flex items-center gap-3 px-4 py-4 border-b hover:bg-white/5 transition-colors" style={{ borderColor: "var(--bg-muted)" }}>
               <span className="text-xl">📧</span>
               <span className="flex-1 text-sm font-bold text-left" style={{ color: "var(--light)" }}>Exercer mes droits RGPD</span>
-              <span style={{ color: "var(--bg-muted)" }}>›</span>
+              <span style={{ color: "var(--text-muted)" }}>›</span>
             </button>
             <button className="w-full flex items-center gap-3 px-4 py-4 hover:bg-white/5 transition-colors">
               <span className="text-xl">🗑️</span>
               <span className="flex-1 text-sm font-bold text-left" style={{ color: "var(--pink)" }}>Supprimer mon compte</span>
-              <span style={{ color: "var(--bg-muted)" }}>›</span>
+              <span style={{ color: "var(--text-muted)" }}>›</span>
             </button>
           </div>
         </section>
@@ -263,7 +263,7 @@ export default function ParametresPage() {
             <p className="font-black text-base mb-1" style={{ color: "var(--light)" }}>
               ⭐ WeMiix Premium
             </p>
-            <p className="text-xs mb-3" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>
               Sans pub · IA avancée · Recommandations personnalisées · 5€/mois
             </p>
             <button
@@ -299,7 +299,7 @@ function ModeButton({
       <p className="font-bold text-sm" style={{ color: active ? "var(--pink)" : "var(--light)" }}>
         {label}
       </p>
-      <p className="text-[10px]" style={{ color: "var(--bg-muted)" }}>{description}</p>
+      <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>{description}</p>
     </button>
   );
 }

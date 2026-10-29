@@ -66,7 +66,7 @@ export default function BlindTestGamePage() {
       {/* En-tête : round + timer */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
             Round {round}
           </p>
           <p className="text-sm font-semibold text-light">Blind Test #{gameId}</p>
@@ -102,7 +102,7 @@ export default function BlindTestGamePage() {
       >
         <div className="text-5xl float-anim">🎧</div>
         <p className="font-semibold text-light">Extrait en cours de lecture...</p>
-        <p className="text-xs" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-xs" style={{ color: "var(--text-muted)" }}>
           Connecte Spotify pour écouter l&apos;extrait
         </p>
         <div className="w-full h-1.5 rounded-full overflow-hidden mt-2" style={{ background: "var(--bg-muted)" }}>
@@ -141,7 +141,7 @@ export default function BlindTestGamePage() {
               <p className="font-bold" style={{ color: answerStatus === "correct" ? "var(--green)" : "var(--pink)" }}>
                 {answerStatus === "correct" ? "Bonne réponse !" : "Pas tout à fait..."}
               </p>
-              <p className="text-xs" style={{ color: "var(--bg-muted)" }}>
+              <p className="text-xs" style={{ color: "var(--text-muted)" }}>
                 La réponse était : Bohemian Rhapsody – Queen
               </p>
             </div>
@@ -154,7 +154,7 @@ export default function BlindTestGamePage() {
 
       {/* Classement */}
       <div>
-        <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
           Classement
         </p>
         <div className="flex flex-col gap-2">
@@ -167,7 +167,7 @@ export default function BlindTestGamePage() {
                 borderColor: idx === 0 ? "var(--green)" : "var(--bg-muted)",
               }}
             >
-              <span className="text-base font-black w-6 text-center" style={{ color: "var(--bg-muted)" }}>
+              <span className="text-base font-black w-6 text-center" style={{ color: "var(--text-muted)" }}>
                 {idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : `${idx + 1}`}
               </span>
               <span className="flex-1 font-semibold text-sm text-light">{player.name}</span>

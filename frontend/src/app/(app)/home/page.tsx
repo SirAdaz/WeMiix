@@ -36,7 +36,7 @@ export default function HomePage() {
     <div className="px-4 py-6 flex flex-col gap-8 max-w-lg mx-auto">
       {/* Greeting */}
       <div>
-        <p className="text-sm font-semibold mb-1" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-sm font-semibold mb-1" style={{ color: "var(--text-muted)" }}>
           {getGreeting()} 👋
         </p>
         <h1 className="text-3xl font-black text-light">Prêt pour la fête ?</h1>
@@ -44,7 +44,7 @@ export default function HomePage() {
 
       {/* Rejoindre une session */}
       <section>
-        <h2 className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+        <h2 className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
           Rejoindre une session
         </h2>
         <div className="flex gap-2">
@@ -60,14 +60,14 @@ export default function HomePage() {
             Rejoindre
           </Button>
         </div>
-        <p className="mt-2 text-xs" style={{ color: "var(--bg-muted)" }}>
+        <p className="mt-2 text-xs" style={{ color: "var(--text-muted)" }}>
           Entre le code partagé par le créateur de la session
         </p>
       </section>
 
       {/* Créer une session */}
       <section>
-        <h2 className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+        <h2 className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
           Créer une session
         </h2>
         <Link href="/groups/create" className="block">
@@ -79,7 +79,7 @@ export default function HomePage() {
 
       {/* Fonctionnalités */}
       <section>
-        <h2 className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+        <h2 className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
           Fonctionnalités
         </h2>
         <div className="grid grid-cols-2 gap-3">
@@ -90,7 +90,7 @@ export default function HomePage() {
                 <h3 className="font-bold text-sm mb-1" style={{ color: accent }}>
                   {title}
                 </h3>
-                <p className="text-xs leading-relaxed" style={{ color: "var(--bg-muted)" }}>
+                <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
                   {description}
                 </p>
               </Card>

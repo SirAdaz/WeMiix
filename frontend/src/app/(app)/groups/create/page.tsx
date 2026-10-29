@@ -61,7 +61,7 @@ export default function CreateGroupPage() {
         <div>
           <div className="text-5xl mb-3">🎉</div>
           <h1 className="text-2xl font-black text-light">Session créée !</h1>
-          <p className="mt-2 text-sm" style={{ color: "var(--bg-muted)" }}>
+          <p className="mt-2 text-sm" style={{ color: "var(--text-muted)" }}>
             Partage ce code ou ce QR code avec tes amis
           </p>
         </div>
@@ -70,7 +70,7 @@ export default function CreateGroupPage() {
           className="rounded-2xl p-5 border"
           style={{ background: "var(--bg-card)", borderColor: "var(--bg-muted)" }}
         >
-          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>Code d&apos;invitation</p>
+          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>Code d&apos;invitation</p>
           <p className="text-4xl font-black tracking-[0.3em]" style={{ color: "var(--green)" }}>
             {created.code}
           </p>
@@ -120,7 +120,7 @@ export default function CreateGroupPage() {
       <div className="text-center mb-8">
         <div className="text-5xl mb-4">🚀</div>
         <h1 className="text-2xl font-black text-light mb-2">Nouvelle session</h1>
-        <p className="text-sm" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-sm" style={{ color: "var(--text-muted)" }}>
           Configure ta session et invite tes amis
         </p>
       </div>
@@ -154,7 +154,7 @@ export default function CreateGroupPage() {
                   className="flex-1 py-3 rounded-xl font-bold text-sm transition-all"
                   style={{
                     background: isSelected ? (m === "adult" ? "var(--pink)" : "var(--green)") : "var(--bg-card)",
-                    color: isSelected ? (m === "adult" ? "white" : "var(--bg-deep)") : "var(--bg-muted)",
+                    color: isSelected ? (m === "adult" ? "white" : "var(--bg-deep)") : "var(--text-muted)",
                     border: `1px solid ${isSelected ? "transparent" : "var(--bg-muted)"}`,
                   }}
                 >

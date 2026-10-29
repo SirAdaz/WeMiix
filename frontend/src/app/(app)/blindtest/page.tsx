@@ -32,14 +32,14 @@ export default function BlindTestPage() {
     <div className="px-4 py-6 max-w-lg mx-auto flex flex-col gap-6">
       <div>
         <h1 className="text-3xl font-black text-light">Blind Test 🎵</h1>
-        <p className="mt-1 text-sm" style={{ color: "var(--bg-muted)" }}>
+        <p className="mt-1 text-sm" style={{ color: "var(--text-muted)" }}>
           Devine la chanson avant les autres !
         </p>
       </div>
 
       {/* Tabs mode */}
       <div>
-        <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
           Mode de jeu
         </p>
         <div className="flex gap-2 flex-wrap">
@@ -50,7 +50,7 @@ export default function BlindTestPage() {
               className="px-4 py-2 rounded-full text-sm font-bold transition-all"
               style={{
                 background: mode === key ? "var(--pink)" : "var(--bg-card)",
-                color: mode === key ? "white" : "var(--bg-muted)",
+                color: mode === key ? "white" : "var(--text-muted)",
                 border: `1px solid ${mode === key ? "transparent" : "var(--bg-muted)"}`,
               }}
             >
@@ -63,7 +63,7 @@ export default function BlindTestPage() {
       {/* Sélecteur genre */}
       {mode === "genre" && (
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
             Choisis un genre
           </p>
           <div className="flex flex-wrap gap-2">
@@ -88,7 +88,7 @@ export default function BlindTestPage() {
       {/* Sélecteur année */}
       {mode === "year" && (
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
             Année de sortie
           </p>
           <Input
@@ -108,7 +108,7 @@ export default function BlindTestPage() {
         >
           <p className="text-2xl mb-2">🎛️</p>
           <p className="font-semibold text-light">Mode personnalisé</p>
-          <p className="text-sm mt-1" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
             Configure ta liste de titres dans les paramètres de la session
           </p>
         </div>

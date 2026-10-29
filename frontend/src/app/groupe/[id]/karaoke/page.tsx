@@ -109,7 +109,7 @@ export default function KaraokePage({ params }: { params: Promise<{ id: string }
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
             Karaoké
           </p>
           <h1 className="text-xl font-black" style={{ color: "var(--light)" }}>
@@ -148,14 +148,14 @@ export default function KaraokePage({ params }: { params: Promise<{ id: string }
 
           {/* Suggestion rapide */}
           <div className="rounded-2xl p-4 border" style={{ background: "var(--bg-card)", borderColor: "var(--bg-muted)" }}>
-            <p className="text-xs font-semibold mb-3" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-xs font-semibold mb-3" style={{ color: "var(--text-muted)" }}>
               Suggestion
             </p>
             <div className="flex items-center gap-3">
               <span className="text-3xl">💿</span>
               <div className="flex-1">
                 <p className="font-bold text-sm" style={{ color: "var(--light)" }}>{mockTrack.title}</p>
-                <p className="text-xs" style={{ color: "var(--bg-muted)" }}>{mockTrack.artist}</p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{mockTrack.artist}</p>
               </div>
               <button
                 onClick={loadLyrics}
@@ -174,7 +174,7 @@ export default function KaraokePage({ params }: { params: Promise<{ id: string }
             </p>
           )}
 
-          <p className="text-xs text-center" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>
             Paroles via LRCLIB · Fallback lyrics.ovh
           </p>
         </div>
@@ -191,7 +191,7 @@ export default function KaraokePage({ params }: { params: Promise<{ id: string }
             <span className="text-2xl">💿</span>
             <div className="flex-1 min-w-0">
               <p className="font-bold text-sm truncate" style={{ color: "var(--light)" }}>{mockTrack.title}</p>
-              <p className="text-xs" style={{ color: "var(--bg-muted)" }}>{mockTrack.artist}</p>
+              <p className="text-xs" style={{ color: "var(--text-muted)" }}>{mockTrack.artist}</p>
             </div>
             <button
               onClick={() => setPlaying((p) => !p)}
@@ -223,7 +223,7 @@ export default function KaraokePage({ params }: { params: Promise<{ id: string }
                       i === activeLine
                         ? "var(--green)"
                         : i < activeLine
-                        ? "var(--bg-muted)"
+                        ? "var(--text-muted)"
                         : "var(--light)",
                     fontSize: i === activeLine ? "1.2rem" : "1rem",
                     opacity: Math.abs(i - activeLine) > 3 ? 0.3 : 1,
@@ -236,7 +236,7 @@ export default function KaraokePage({ params }: { params: Promise<{ id: string }
           </div>
 
           {/* Progression */}
-          <div className="flex items-center gap-2 text-xs" style={{ color: "var(--bg-muted)" }}>
+          <div className="flex items-center gap-2 text-xs" style={{ color: "var(--text-muted)" }}>
             <span>{formatTime(currentTime)}</span>
             <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: "var(--bg-card)" }}>
               <div
@@ -260,7 +260,7 @@ export default function KaraokePage({ params }: { params: Promise<{ id: string }
             <p className="font-black text-lg" style={{ color: "var(--light)" }}>
               Vote pour le meilleur chanteur !
             </p>
-            <p className="text-sm" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-sm" style={{ color: "var(--text-muted)" }}>
               {myVote ? "Vote enregistré ✓" : "Un seul vote par manche"}
             </p>
           </div>
@@ -280,7 +280,7 @@ export default function KaraokePage({ params }: { params: Promise<{ id: string }
               <span className="text-3xl">{singer.avatar}</span>
               <div className="flex-1 text-left">
                 <p className="font-bold" style={{ color: "var(--light)" }}>{singer.name}</p>
-                <p className="text-xs" style={{ color: "var(--bg-muted)" }}>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>
                   {singer.votes} vote{singer.votes > 1 ? "s" : ""}
                 </p>
               </div>
@@ -319,7 +319,7 @@ export default function KaraokePage({ params }: { params: Promise<{ id: string }
                 borderColor: i === 0 ? "var(--green)" : "var(--bg-muted)",
               }}
             >
-              <span className="text-2xl w-8 text-center font-black" style={{ color: i === 0 ? "var(--green)" : "var(--bg-muted)" }}>
+              <span className="text-2xl w-8 text-center font-black" style={{ color: i === 0 ? "var(--green)" : "var(--text-muted)" }}>
                 {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `#${i + 1}`}
               </span>
               <span className="text-2xl">{s.avatar}</span>

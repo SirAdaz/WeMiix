@@ -46,7 +46,7 @@ export default function MinigamesPage() {
     <div className="px-4 py-6 max-w-lg mx-auto flex flex-col gap-6">
       <div>
         <h1 className="text-3xl font-black text-light">Mini-jeux 🕹️</h1>
-        <p className="mt-1 text-sm" style={{ color: "var(--bg-muted)" }}>
+        <p className="mt-1 text-sm" style={{ color: "var(--text-muted)" }}>
           Des défis musicaux pour animer la soirée
         </p>
       </div>
@@ -75,7 +75,7 @@ export default function MinigamesPage() {
               {title}
             </h2>
 
-            <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--text-muted)" }}>
               {description}
             </p>
 

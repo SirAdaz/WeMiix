@@ -49,7 +49,7 @@ export default function KaraokePage() {
     <div className="px-4 py-6 max-w-lg mx-auto flex flex-col gap-6">
       <div>
         <h1 className="text-3xl font-black text-light">Karaoké 🎤</h1>
-        <p className="mt-1 text-sm" style={{ color: "var(--bg-muted)" }}>
+        <p className="mt-1 text-sm" style={{ color: "var(--text-muted)" }}>
           Cherche une chanson et chante avec tes amis
         </p>
       </div>
@@ -70,7 +70,7 @@ export default function KaraokePage() {
 
       {/* Résultats */}
       {searched && !loading && results.length === 0 && (
-        <div className="text-center py-10" style={{ color: "var(--bg-muted)" }}>
+        <div className="text-center py-10" style={{ color: "var(--text-muted)" }}>
           <div className="text-4xl mb-3">🎵</div>
           <p className="font-semibold">Aucun résultat trouvé</p>
           <p className="text-sm mt-1">Essaie un autre titre ou artiste</p>
@@ -79,7 +79,7 @@ export default function KaraokePage() {
 
       {results.length > 0 && (
         <div className="flex flex-col gap-3">
-          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
             {results.length} résultat{results.length > 1 ? "s" : ""}
           </p>
           {results.map((track) => (
@@ -106,8 +106,8 @@ export default function KaraokePage() {
               )}
               <div className="flex-1 min-w-0">
                 <p className="font-bold text-sm text-light truncate">{track.title}</p>
-                <p className="text-xs truncate" style={{ color: "var(--bg-muted)" }}>{track.artist}</p>
-                <p className="text-xs mt-0.5" style={{ color: "var(--bg-muted)" }}>{formatDuration(track.duration)}</p>
+                <p className="text-xs truncate" style={{ color: "var(--text-muted)" }}>{track.artist}</p>
+                <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>{formatDuration(track.duration)}</p>
               </div>
               <Button variant="primary" size="sm">
                 Chanter
@@ -121,7 +121,7 @@ export default function KaraokePage() {
         <div className="text-center py-12 flex flex-col items-center gap-3">
           <div className="text-5xl float-anim">🎤</div>
           <p className="font-semibold text-light">Recherche une chanson</p>
-          <p className="text-sm" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-sm" style={{ color: "var(--text-muted)" }}>
             Tape le nom d&apos;un artiste ou d&apos;un titre
           </p>
         </div>

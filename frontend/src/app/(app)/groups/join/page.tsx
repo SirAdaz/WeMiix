@@ -54,14 +54,14 @@ function JoinGroupForm() {
           maxLength={6}
           className="text-center font-black tracking-[0.3em] text-xl uppercase"
         />
-        <p className="mt-1 text-xs" style={{ color: "var(--bg-muted)" }}>
+        <p className="mt-1 text-xs" style={{ color: "var(--text-muted)" }}>
           6 caractères, lettres et chiffres
         </p>
       </div>
 
       <div>
         <label className="block text-sm font-bold mb-2" style={{ color: "var(--light)" }}>
-          Ton pseudo <span style={{ color: "var(--bg-muted)" }}>(optionnel)</span>
+          Ton pseudo <span style={{ color: "var(--text-muted)" }}>(optionnel)</span>
         </label>
         <Input
           value={pseudo}
@@ -96,7 +96,7 @@ export default function JoinGroupPage() {
       <div className="text-center mb-8">
         <div className="text-5xl mb-4">🎉</div>
         <h1 className="text-2xl font-black text-light mb-2">Rejoindre une session</h1>
-        <p className="text-sm" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-sm" style={{ color: "var(--text-muted)" }}>
           Demande le code à l&apos;hôte de la session
         </p>
       </div>
