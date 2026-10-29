@@ -1,5 +1,6 @@
 package com.wemiix.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,6 +45,15 @@ public class User {
 
     @Column
     private String spotifyId;
+
+    /** Hash BCrypt ; null pour les comptes Spotify et les invités. Jamais sérialisé. */
+    @JsonIgnore
+    @Column
+    private String passwordHash;
+
+    /** Compte jetable créé par le mode invité. Nullable : colonne ajoutée sur des bases existantes. */
+    @Column
+    private Boolean guest = false;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
