@@ -69,7 +69,9 @@ public class AuthController {
 
     // ── DTOs ─────────────────────────────────────────────────────────────────
 
-    record LoginRequest(String email, String username) {}
+    record LoginRequest(String email, String password) {}
+    record RegisterRequest(String email, String username, String password) {}
+    record GuestRequest(String username) {}
     record RefreshRequest(String refreshToken) {}
     record AuthResponse(String accessToken, String refreshToken, User user) {}
 
@@ -77,11 +79,28 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest body) {
-        if (!StringUtils.hasText(body.email()) || !StringUtils.hasText(body.username())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "email et username sont requis");
+        if (!StringUtils.hasText(body.email()) || !StringUtils.hasText(body.password())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "email et password sont requis");
         }
-        AuthService.AuthTokens tokens = authService.loginOrRegister(body.email(), body.username());
-        return ResponseEntity.ok(new AuthResponse(tokens.accessToken(), tokens.refreshToken(), tokens.user()));
+        return ResponseEntity.ok(toResponse(authService.login(body.email(), body.password())));
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest body) {
+        if (!StringUtils.hasText(body.email()) || !StringUtils.hasText(body.username())
+                || !StringUtils.hasText(body.password())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "email, username et password sont requis");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED)
+            .body(toResponse(authService.register(body.email(), body.username(), body.password())));
+    }
+
+    @PostMapping("/guest")
+    public ResponseEntity<AuthResponse> guest(@RequestBody GuestRequest body) {
+        if (!StringUtils.hasText(body.username())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "username est requis");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(authService.guest(body.username())));
     }
 
     @PostMapping("/refresh")
@@ -173,6 +192,10 @@ public class AuthController {
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────
+
+    private AuthResponse toResponse(AuthService.AuthTokens tokens) {
+        return new AuthResponse(tokens.accessToken(), tokens.refreshToken(), tokens.user());
+    }
 
     private Long extractUserIdFromHeader(String authHeader) {
         if (!StringUtils.hasText(authHeader) || !authHeader.startsWith("Bearer ")) {

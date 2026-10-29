@@ -5,38 +5,44 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { BASE_URL, saveTokens, setGuestMode, type User } from "@/lib/auth";
 
+type AuthMode = "login" | "register";
+
+interface AuthPayload {
+  accessToken: string;
+  refreshToken: string;
+  user: User;
+}
+
 export default function ConnexionPage() {
   const router = useRouter();
+  const [mode, setMode] = useState<AuthMode>("login");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const isRegister = mode === "register";
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function requestTokens(path: string, payload: Record<string, string>): Promise<AuthPayload> {
+    const res = await fetch(`${BASE_URL}/api/auth/${path}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      const data = (await res.json().catch(() => ({}))) as { message?: string };
+      throw new Error(data.message || `Erreur ${res.status}`);
+    }
+    return (await res.json()) as AuthPayload;
+  }
+
+  async function authenticate(path: string, payload: Record<string, string>, isGuest: boolean) {
     setError("");
     setLoading(true);
-
     try {
-      const res = await fetch(`${BASE_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, username }),
-      });
-
-      if (!res.ok) {
-        const data = (await res.json().catch(() => ({}))) as { message?: string };
-        throw new Error(data.message ?? `Erreur ${res.status}`);
-      }
-
-      const data = (await res.json()) as {
-        accessToken: string;
-        refreshToken: string;
-        user: User;
-      };
-
+      const data = await requestTokens(path, payload);
       saveTokens(data.accessToken, data.refreshToken);
-      setGuestMode(false);
+      setGuestMode(isGuest);
       router.replace("/groupe");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Une erreur est survenue");
@@ -45,13 +51,22 @@ export default function ConnexionPage() {
     }
   }
 
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    void authenticate(
+      mode,
+      isRegister ? { email, username, password } : { email, password },
+      false,
+    );
+  }
+
   async function handleSpotify() {
     setLoading(true);
     try {
       const res = await fetch(`${BASE_URL}/api/auth/spotify/authorize`);
       if (!res.ok) throw new Error("Impossible de contacter Spotify");
-      const data = (await res.json()) as { url: string };
-      window.location.href = data.url;
+      const data = (await res.json()) as { authorizationUrl: string };
+      window.location.href = data.authorizationUrl;
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Erreur Spotify");
       setLoading(false);
@@ -59,8 +74,8 @@ export default function ConnexionPage() {
   }
 
   function handleGuest() {
-    setGuestMode(true);
-    router.replace("/groupe");
+    const suffix = Math.floor(100 + Math.random() * 900);
+    void authenticate("guest", { username: `Invité ${suffix}` }, true);
   }
 
   return (
@@ -109,49 +124,38 @@ export default function ConnexionPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div>
-            <label
-              className="text-xs font-semibold mb-1.5 block"
-              style={{ color: "var(--text-muted)" }}
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              placeholder="toi@exemple.fr"
-              className="w-full rounded-xl px-4 py-3 text-sm outline-none border transition-colors"
-              style={{
-                background: "var(--bg-deep)",
-                borderColor: "var(--bg-muted)",
-                color: "var(--light)",
-              }}
-            />
-          </div>
+          <FormField
+            id="email"
+            label="Email"
+            type="email"
+            value={email}
+            onChange={setEmail}
+            placeholder="toi@exemple.fr"
+            autoComplete="email"
+          />
 
-          <div>
-            <label
-              className="text-xs font-semibold mb-1.5 block"
-              style={{ color: "var(--text-muted)" }}
-            >
-              Pseudo
-            </label>
-            <input
+          {isRegister && (
+            <FormField
+              id="username"
+              label="Pseudo"
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
+              onChange={setUsername}
               placeholder="TonPseudo"
-              className="w-full rounded-xl px-4 py-3 text-sm outline-none border transition-colors"
-              style={{
-                background: "var(--bg-deep)",
-                borderColor: "var(--bg-muted)",
-                color: "var(--light)",
-              }}
+              autoComplete="nickname"
             />
-          </div>
+          )}
+
+          <FormField
+            id="password"
+            label="Mot de passe"
+            type="password"
+            value={password}
+            onChange={setPassword}
+            placeholder={isRegister ? "8 caractères minimum" : "Ton mot de passe"}
+            autoComplete={isRegister ? "new-password" : "current-password"}
+            minLength={isRegister ? 8 : undefined}
+          />
 
           {error && (
             <p
@@ -168,7 +172,19 @@ export default function ConnexionPage() {
             className="w-full py-3.5 rounded-full font-bold text-white text-sm transition-all hover:scale-105 disabled:opacity-50 disabled:scale-100 glow-pink mt-1"
             style={{ background: "var(--pink)" }}
           >
-            {loading ? "Chargement…" : "Connexion"}
+            {loading ? "Chargement…" : isRegister ? "Créer mon compte" : "Connexion"}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setMode(isRegister ? "login" : "register");
+              setError("");
+            }}
+            className="text-sm underline transition-opacity hover:opacity-80"
+            style={{ color: "var(--text-muted)" }}
+          >
+            {isRegister ? "J'ai déjà un compte" : "Pas encore de compte ? En créer un"}
           </button>
         </form>
       </div>
@@ -182,6 +198,39 @@ export default function ConnexionPage() {
           Continuer en mode invité →
         </button>
       </div>
+    </div>
+  );
+}
+
+interface FormFieldProps {
+  id: string;
+  label: string;
+  type: "email" | "text" | "password";
+  value: string;
+  onChange: (value: string) => void;
+  placeholder: string;
+  autoComplete: string;
+  minLength?: number;
+}
+
+function FormField({ id, label, type, value, onChange, placeholder, autoComplete, minLength }: FormFieldProps) {
+  return (
+    <div>
+      <label htmlFor={id} className="text-xs font-semibold mb-1.5 block" style={{ color: "var(--text-muted)" }}>
+        {label}
+      </label>
+      <input
+        id={id}
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        required
+        minLength={minLength}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        className="w-full rounded-xl px-4 py-3 text-sm outline-none border transition-colors"
+        style={{ background: "var(--bg-deep)", borderColor: "var(--bg-muted)", color: "var(--light)" }}
+      />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import com.wemiix.app.model.User;
 import com.wemiix.app.repository.RefreshTokenRepository;
 import com.wemiix.app.repository.UserRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -17,14 +18,18 @@ public class AuthService {
 
     private static final long ACCESS_TOKEN_EXPIRATION = 900L;    // 15 minutes
     private static final long REFRESH_TOKEN_EXPIRATION = 604800L; // 7 jours
+    private static final int MIN_PASSWORD_LENGTH = 8;
 
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
 
     public AuthService(UserRepository userRepository,
                        RefreshTokenRepository refreshTokenRepository,
-                       JwtService jwtService) {
+                       JwtService jwtService,
+                       PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.refreshTokenRepository = refreshTokenRepository;
         this.jwtService = jwtService;
@@ -33,19 +38,46 @@ public class AuthService {
     public record AuthTokens(String accessToken, String refreshToken, User user) {}
 
     @Transactional
-    public AuthTokens loginOrRegister(String email, String username) {
-        User user = userRepository.findByEmail(email).orElseGet(() -> {
-            User newUser = new User();
-            newUser.setEmail(email);
-            newUser.setUsername(username);
-            newUser.setDisplayName(username);
-            return userRepository.save(newUser);
-        });
+    public AuthTokens register(String email, String username, String password) {
+        if (password.length() < MIN_PASSWORD_LENGTH) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                "Le mot de passe doit faire au moins " + MIN_PASSWORD_LENGTH + " caractères");
+        }
+        String normalizedEmail = email.trim().toLowerCase();
+        if (userRepository.findByEmail(normalizedEmail).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Un compte existe déjà avec cet e-mail");
+        }
+        User user = new User();
+        user.setEmail(normalizedEmail);
+        user.setUsername(username.trim());
+        user.setDisplayName(username.trim());
+        user.setPasswordHash(passwordEncoder.encode(password));
+        return issueTokens(userRepository.save(user));
+    }
 
+    @Transactional
+    public AuthTokens login(String email, String password) {
+        User user = userRepository.findByEmail(email.trim().toLowerCase())
+            .filter(found -> found.getPasswordHash() != null)
+            .filter(found -> passwordEncoder.matches(password, found.getPasswordHash()))
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "E-mail ou mot de passe incorrect"));
+        return issueTokens(user);
+    }
+
+    /** Invité : compte jetable sans e-mail réel, pour jouer sans inscription. */
+    @Transactional
+    public AuthTokens guest(String username) {
+        User user = new User();
+        user.setEmail("guest-" + UUID.randomUUID() + "@guest.wemiix.invalid");
+        user.setUsername(username.trim());
+        user.setDisplayName(username.trim());
+        user.setGuest(true);
+        return issueTokens(userRepository.save(user));
+    }
+
+    private AuthTokens issueTokens(User user) {
         String accessToken = jwtService.generateToken(user.getId(), user.getEmail(), ACCESS_TOKEN_EXPIRATION);
-        String refreshToken = persistRefreshToken(user.getId());
-
-        return new AuthTokens(accessToken, refreshToken, user);
+        return new AuthTokens(accessToken, persistRefreshToken(user.getId()), user);
     }
 
     @Transactional
