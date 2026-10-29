@@ -8,6 +8,7 @@ import com.wemiix.app.model.UserMode;
 import com.wemiix.app.repository.GroupMemberRepository;
 import com.wemiix.app.repository.GroupRepository;
 import com.wemiix.app.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,16 +23,18 @@ public class GroupService {
 
     private static final String ALPHANUMERIC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final int INVITE_CODE_LENGTH = 6;
-    private static final String JOIN_BASE_URL = "http://localhost:3000/join/";
 
     private final GroupRepository groupRepository;
     private final GroupMemberRepository groupMemberRepository;
     private final UserRepository userRepository;
+    private final String joinBaseUrl;
     private final SecureRandom secureRandom = new SecureRandom();
 
     public GroupService(GroupRepository groupRepository,
                         GroupMemberRepository groupMemberRepository,
-                        UserRepository userRepository) {
+                        UserRepository userRepository,
+                        @Value("${app.frontend-url}") String frontendUrl) {
+        this.joinBaseUrl = frontendUrl + "/join/";
         this.groupRepository = groupRepository;
         this.groupMemberRepository = groupMemberRepository;
         this.userRepository = userRepository;
@@ -39,7 +42,7 @@ public class GroupService {
 
     public Group createGroup(String name, UserMode mode, Long userId) {
         String inviteCode = generateUniqueInviteCode();
-        String inviteLink = JOIN_BASE_URL + inviteCode;
+        String inviteLink = joinBaseUrl + inviteCode;
 
         Group group = new Group();
         group.setName(name);
