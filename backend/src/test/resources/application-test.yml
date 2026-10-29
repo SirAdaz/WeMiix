@@ -1,0 +1,20 @@
+# Profil de test : base H2 en memoire a la place de PostgreSQL.
+# MongoDB et Redis ne sont pas contactes au demarrage (connexions paresseuses).
+spring:
+  datasource:
+    url: jdbc:h2:mem:wemiix;MODE=PostgreSQL;NON_KEYWORDS=VALUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  session:
+    store-type: none
+
+auth:
+  secret: test-secret-at-least-32-characters-long
+  token-expiration: 900
