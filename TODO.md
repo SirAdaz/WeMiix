@@ -4,6 +4,10 @@
 
 ---
 
+> **État réel au 29/10/2026.** Les cases cochées en Karaoké, Blind Test, Playlists, Mini-jeux et Statistiques sont vraies pour l'**interface** (`src/app/groupe/[id]/...`, `src/app/stats`), qui fonctionne en local sans API ni WebSocket. Reste à faire : brancher ces écrans sur le backend, ajouter un client STOMP, fusionner les deux arborescences de routes (`(app)/...` et `groupe/[id]/...`), un vrai mode invité côté serveur et une connexion avec mot de passe. Le blind test backend ne génère aucune question tant que Spotify n'est pas configuré.
+
+---
+
 ## 🔐 Authentification
 
 - [x] JWT maison (HmacSHA256 pur Java 21) — `JwtService`, `JwtAuthFilter`, `RefreshToken`

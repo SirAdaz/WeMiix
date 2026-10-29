@@ -79,6 +79,29 @@ L'application est accessible sur :
 - **API Backend** : http://localhost:8080
 - **Health check** : http://localhost:8080/api/health
 
+### Port 3000 ou 80 déjà pris
+
+Les ports publiés sont 80 (nginx), 3000 (frontend), 8080, 5432, 6379 et 27017. Si 3000 est occupé, ne pas publier le frontend et passer par nginx :
+
+```yaml
+# docker-compose.override.local.yml (ne pas committer)
+services:
+  frontend:
+    ports: !reset []
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost
+      NEXT_PUBLIC_WS_URL: ws://localhost
+  backend:
+    environment:
+      FRONTEND_URL: http://localhost
+      BACKEND_PUBLIC_URL: http://localhost
+```
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.override.local.yml up --build -d
+# application sur http://localhost
+```
+
 ### Lancement en production
 
 ```bash
@@ -133,6 +156,8 @@ WeMiix/
 
 ## Fonctionnalités implémentées
 
+> État réel au 29/10/2026 : le karaoké, le blind test, les playlists et les mini-jeux existent comme **écrans prototypes** (`frontend/src/app/groupe/[id]/...`, données locales, sans appel API ni WebSocket). L'API correspondante existe côté backend, mais le branchement et le temps réel restent à faire. Détail dans `TODO.md`.
+
 - [x] **Authentification** — JWT (HmacSHA256), Spotify OAuth2, mode invité
 - [x] **Groupes** — création avec QR code, invitation par lien/code, rôles hôte/membre
 - [x] **Karaoké** — paroles LRCLIB (+ fallback lyrics.ovh), sync temps réel WebSocket, votes, scores
@@ -172,6 +197,8 @@ WeMiix/
 | `SPOTIFY_CLIENT_ID` | Client ID Spotify Developer | — |
 | `SPOTIFY_CLIENT_SECRET` | Client Secret Spotify Developer | — |
 | `AUTH_SECRET` | Secret JWT (≥ 32 chars) | `changeme_at_least_32_chars_long_secret` |
+| `FRONTEND_URL` | URL publique du front (CORS, lien d'invitation, retour OAuth) | `http://localhost:3000` |
+| `BACKEND_PUBLIC_URL` | URL publique de l'API (redirect URI Spotify) | `http://localhost:8080` |
 | `POSTGRES_PASSWORD` | Mot de passe PostgreSQL | `changeme` |
 | `REDIS_PASSWORD` | Mot de passe Redis | `changeme` |
 | `MONGO_INITDB_ROOT_PASSWORD` | Mot de passe MongoDB | `changeme` |
@@ -195,6 +222,9 @@ docker compose restart backend
 
 # Sauvegarder les bases de données
 ./scripts/backup.sh
+
+# Vérifications avant PR (lint + tsc du front, mvn test du back via Docker)
+./scripts/check.sh
 
 # Arrêter tout
 docker compose down
