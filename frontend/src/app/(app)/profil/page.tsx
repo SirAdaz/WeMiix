@@ -32,7 +32,7 @@ export default function ProfilPage() {
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] gap-4 px-6">
-        <p className="text-sm" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-sm" style={{ color: "var(--text-muted)" }}>
           Tu n&apos;es pas connecté.
         </p>
       </div>
@@ -75,7 +75,7 @@ export default function ProfilPage() {
         >
           {user.username}
         </h1>
-        <p className="text-sm mt-1" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
           {user.email}
         </p>
       </div>
@@ -86,7 +86,7 @@ export default function ProfilPage() {
         style={
           user.plan === "PREMIUM"
             ? { background: "rgba(39,233,101,0.15)", color: "var(--green)" }
-            : { background: "rgba(59,82,101,0.4)", color: "var(--bg-muted)" }
+            : { background: "rgba(59,82,101,0.4)", color: "var(--text-muted)" }
         }
       >
         {user.plan ?? "FREE"}
@@ -109,7 +109,7 @@ export default function ProfilPage() {
               <p className="text-sm font-bold" style={{ color: "var(--light)" }}>
                 Spotify
               </p>
-              <p className="text-xs" style={{ color: "var(--bg-muted)" }}>
+              <p className="text-xs" style={{ color: "var(--text-muted)" }}>
                 {user.spotifyConnected ? "Compte connecté" : "Non connecté"}
               </p>
             </div>
@@ -142,14 +142,14 @@ export default function ProfilPage() {
         className="w-full py-3 rounded-full text-sm font-bold border transition-all hover:bg-red-500/10 disabled:opacity-50"
         style={{
           borderColor: "var(--bg-muted)",
-          color: "var(--bg-muted)",
+          color: "var(--text-muted)",
         }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLButtonElement).style.color = "#ef4444";
           (e.currentTarget as HTMLButtonElement).style.borderColor = "#ef4444";
         }}
         onMouseLeave={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.color = "var(--bg-muted)";
+          (e.currentTarget as HTMLButtonElement).style.color = "var(--text-muted)";
           (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--bg-muted)";
         }}
       >

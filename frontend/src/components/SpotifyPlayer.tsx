@@ -86,7 +86,7 @@ export default function SpotifyPlayer({
         >
           {trackName}
         </p>
-        <p className="text-sm truncate mt-0.5" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-sm truncate mt-0.5" style={{ color: "var(--text-muted)" }}>
           {artistName}
         </p>
       </div>
@@ -106,10 +106,10 @@ export default function SpotifyPlayer({
           />
         </div>
         <div className="flex justify-between mt-1">
-          <span className="text-xs" style={{ color: "var(--bg-muted)" }}>
+          <span className="text-xs" style={{ color: "var(--text-muted)" }}>
             {formatTime(currentMs)}
           </span>
-          <span className="text-xs" style={{ color: "var(--bg-muted)" }}>
+          <span className="text-xs" style={{ color: "var(--text-muted)" }}>
             {formatTime(durationMs)}
           </span>
         </div>

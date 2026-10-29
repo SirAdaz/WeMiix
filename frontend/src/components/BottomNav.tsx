@@ -71,13 +71,13 @@ export default function BottomNav({ groupId }: { groupId: string }) {
           >
             <span
               className="w-6 h-6 transition-colors"
-              style={{ color: isActive ? item.activeColor : "var(--bg-muted)" }}
+              style={{ color: isActive ? item.activeColor : "var(--text-muted)" }}
             >
               {item.icon}
             </span>
             <span
               className="text-[10px] font-semibold truncate"
-              style={{ color: isActive ? item.activeColor : "var(--bg-muted)" }}
+              style={{ color: isActive ? item.activeColor : "var(--text-muted)" }}
             >
               {item.label}
             </span>

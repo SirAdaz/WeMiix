@@ -52,7 +52,7 @@ export default function StatsPage() {
       {/* Header */}
       <div className="px-4 pt-6 pb-4 max-w-lg mx-auto">
         <div className="flex items-center gap-3 mb-6">
-          <Link href="/" className="text-sm" style={{ color: "var(--bg-muted)" }}>← Accueil</Link>
+          <Link href="/" className="text-sm" style={{ color: "var(--text-muted)" }}>← Accueil</Link>
         </div>
 
         <h1 className="text-2xl font-black mb-1" style={{ color: "var(--light)" }}>
@@ -66,7 +66,7 @@ export default function StatsPage() {
             className="flex-1 py-2.5 text-sm font-bold transition-colors"
             style={{
               background: tab === "personal" ? "var(--pink)" : "transparent",
-              color: tab === "personal" ? "#fff" : "var(--bg-muted)",
+              color: tab === "personal" ? "#fff" : "var(--text-muted)",
             }}
           >
             Mes stats
@@ -76,7 +76,7 @@ export default function StatsPage() {
             className="flex-1 py-2.5 text-sm font-bold transition-colors"
             style={{
               background: tab === "group" ? "var(--pink)" : "transparent",
-              color: tab === "group" ? "#fff" : "var(--bg-muted)",
+              color: tab === "group" ? "#fff" : "var(--text-muted)",
             }}
           >
             Mon groupe
@@ -111,25 +111,25 @@ function PersonalStats() {
         className="rounded-2xl p-4 border"
         style={{ background: "var(--bg-card)", borderColor: "var(--bg-muted)" }}
       >
-        <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
           Profil musical
         </p>
         <div className="flex gap-4">
           <div className="flex-1 text-center">
             <p className="text-2xl mb-1">🎤</p>
-            <p className="text-xs" style={{ color: "var(--bg-muted)" }}>Artiste favori</p>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>Artiste favori</p>
             <p className="font-black text-sm" style={{ color: "var(--light)" }}>{personalStats.favoriteArtist}</p>
           </div>
           <div className="w-px" style={{ background: "var(--bg-muted)" }} />
           <div className="flex-1 text-center">
             <p className="text-2xl mb-1">🎵</p>
-            <p className="text-xs" style={{ color: "var(--bg-muted)" }}>Genre favori</p>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>Genre favori</p>
             <p className="font-black text-sm" style={{ color: "var(--light)" }}>{personalStats.favoriteGenre}</p>
           </div>
           <div className="w-px" style={{ background: "var(--bg-muted)" }} />
           <div className="flex-1 text-center">
             <p className="text-2xl mb-1">🥉</p>
-            <p className="text-xs" style={{ color: "var(--bg-muted)" }}>Classement</p>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>Classement</p>
             <p className="font-black text-sm" style={{ color: "var(--light)" }}>#{personalStats.rank}</p>
           </div>
         </div>
@@ -137,7 +137,7 @@ function PersonalStats() {
 
       {/* Records perso */}
       <div>
-        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--text-muted)" }}>
           Records
         </p>
         <div className="flex flex-col gap-2">
@@ -157,7 +157,7 @@ function PersonalStats() {
 
       {/* Historique */}
       <div>
-        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--text-muted)" }}>
           Dernières parties
         </p>
         <div className="flex flex-col gap-2">
@@ -170,7 +170,7 @@ function PersonalStats() {
               <span className="text-lg">{h.result === "win" ? "✅" : "❌"}</span>
               <div className="flex-1">
                 <p className="font-bold text-sm" style={{ color: "var(--light)" }}>{h.game}</p>
-                <p className="text-xs" style={{ color: "var(--bg-muted)" }}>{h.date}</p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{h.date}</p>
               </div>
               <span className="font-black text-sm" style={{ color: h.result === "win" ? "var(--green)" : "var(--pink)" }}>
                 {h.score} pts
@@ -188,7 +188,7 @@ function GroupStats() {
     <div className="flex flex-col gap-5">
       {/* Classement */}
       <div>
-        <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
           Classement du groupe
         </p>
         {groupStats.topPlayers.map((p, i) => (
@@ -206,7 +206,7 @@ function GroupStats() {
             <span className="text-2xl">{p.avatar}</span>
             <div className="flex-1">
               <p className="font-bold text-sm" style={{ color: "var(--light)" }}>{p.name}</p>
-              <p className="text-xs" style={{ color: "var(--bg-muted)" }}>{p.gamesWon} victoires</p>
+              <p className="text-xs" style={{ color: "var(--text-muted)" }}>{p.gamesWon} victoires</p>
             </div>
             <span className="font-black text-sm" style={{ color: i === 0 ? "var(--green)" : "var(--light)" }}>
               {p.points.toLocaleString()} pts
@@ -223,7 +223,7 @@ function GroupStats() {
 
       {/* Records groupe */}
       <div>
-        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--text-muted)" }}>
           Records du groupe
         </p>
         <div className="flex flex-col gap-2">
@@ -247,7 +247,7 @@ function GroupStats() {
         style={{ background: "var(--bg-card)", borderColor: "var(--bg-muted)" }}
       >
         <p className="text-2xl mb-1">🔥</p>
-        <p className="text-xs" style={{ color: "var(--bg-muted)" }}>Meilleur streak</p>
+        <p className="text-xs" style={{ color: "var(--text-muted)" }}>Meilleur streak</p>
         <p className="font-black text-sm mt-1" style={{ color: "var(--light)" }}>{groupStats.bestStreak}</p>
       </div>
     </div>
@@ -266,7 +266,7 @@ function StatCard({ emoji, label, value, accent }: { emoji: string; label: strin
       }}
     >
       <span className="text-2xl">{emoji}</span>
-      <p className="text-xs" style={{ color: "var(--bg-muted)" }}>{label}</p>
+      <p className="text-xs" style={{ color: "var(--text-muted)" }}>{label}</p>
       <p className="font-black text-lg" style={{ color: "var(--light)" }}>{value}</p>
     </div>
   );

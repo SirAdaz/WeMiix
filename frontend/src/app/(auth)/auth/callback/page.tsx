@@ -61,7 +61,7 @@ function CallbackContent() {
   return (
     <div className="flex flex-col items-center gap-4 py-12">
       <Spinner />
-      <p className="text-sm" style={{ color: "var(--bg-muted)" }}>
+      <p className="text-sm" style={{ color: "var(--text-muted)" }}>
         Connexion Spotify en cours…
       </p>
     </div>
@@ -91,7 +91,7 @@ export default function AuthCallbackPage() {
         fallback={
           <div className="flex flex-col items-center gap-4">
             <Spinner />
-            <p className="text-sm" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-sm" style={{ color: "var(--text-muted)" }}>
               Chargement…
             </p>
           </div>

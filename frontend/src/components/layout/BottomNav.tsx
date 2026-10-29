@@ -26,7 +26,7 @@ export default function BottomNav() {
               <Link
                 href={href}
                 className="flex flex-col items-center justify-center gap-0.5 h-full transition-colors"
-                style={{ color: isActive ? "var(--pink)" : "var(--bg-muted)" }}
+                style={{ color: isActive ? "var(--pink)" : "var(--text-muted)" }}
               >
                 <span className="text-xl leading-none">{emoji}</span>
                 <span className="text-[10px] font-bold">{label}</span>

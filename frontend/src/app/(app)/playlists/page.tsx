@@ -64,7 +64,7 @@ export default function PlaylistsPage() {
     <div className="px-4 py-6 max-w-lg mx-auto flex flex-col gap-6 pb-24">
       <div>
         <h1 className="text-3xl font-black text-light">Playlists 🎶</h1>
-        <p className="mt-1 text-sm" style={{ color: "var(--bg-muted)" }}>
+        <p className="mt-1 text-sm" style={{ color: "var(--text-muted)" }}>
           Votez pour les meilleurs titres de la soirée
         </p>
       </div>
@@ -91,7 +91,7 @@ export default function PlaylistsPage() {
           <button
             onClick={() => setShowAdd(false)}
             className="text-xs text-center"
-            style={{ color: "var(--bg-muted)" }}
+            style={{ color: "var(--text-muted)" }}
           >
             Annuler
           </button>
@@ -101,10 +101,10 @@ export default function PlaylistsPage() {
       {/* Liste des tracks */}
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
             {tracks.length} titre{tracks.length > 1 ? "s" : ""}
           </p>
-          <p className="text-xs" style={{ color: "var(--bg-muted)" }}>Trié par votes</p>
+          <p className="text-xs" style={{ color: "var(--text-muted)" }}>Trié par votes</p>
         </div>
 
         {sortedTracks.map((track, idx) => {
@@ -121,7 +121,7 @@ export default function PlaylistsPage() {
               }}
             >
               {/* Rang */}
-              <span className="w-6 text-center text-sm font-black" style={{ color: "var(--bg-muted)" }}>
+              <span className="w-6 text-center text-sm font-black" style={{ color: "var(--text-muted)" }}>
                 {idx === 0 ? "🔥" : idx + 1}
               </span>
 
@@ -140,8 +140,8 @@ export default function PlaylistsPage() {
               {/* Infos */}
               <div className="flex-1 min-w-0">
                 <p className="font-bold text-sm text-light truncate">{track.title}</p>
-                <p className="text-xs truncate" style={{ color: "var(--bg-muted)" }}>{track.artist}</p>
-                <p className="text-xs mt-0.5" style={{ color: "var(--bg-muted)" }}>par {track.addedBy}</p>
+                <p className="text-xs truncate" style={{ color: "var(--text-muted)" }}>{track.artist}</p>
+                <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>par {track.addedBy}</p>
               </div>
 
               {/* Votes */}
@@ -149,7 +149,7 @@ export default function PlaylistsPage() {
                 <button
                   onClick={() => handleVote(track.id, 1)}
                   className="text-lg leading-none transition-transform hover:scale-125"
-                  style={{ color: userVote === 1 ? "var(--green)" : "var(--bg-muted)" }}
+                  style={{ color: userVote === 1 ? "var(--green)" : "var(--text-muted)" }}
                 >
                   ▲
                 </button>
@@ -157,7 +157,7 @@ export default function PlaylistsPage() {
                 <button
                   onClick={() => handleVote(track.id, -1)}
                   className="text-lg leading-none transition-transform hover:scale-125"
-                  style={{ color: userVote === -1 ? "var(--pink)" : "var(--bg-muted)" }}
+                  style={{ color: userVote === -1 ? "var(--pink)" : "var(--text-muted)" }}
                 >
                   ▼
                 </button>

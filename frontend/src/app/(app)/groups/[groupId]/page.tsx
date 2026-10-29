@@ -59,7 +59,7 @@ export default function GroupPage() {
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="text-4xl mb-3 float-anim">🎵</div>
-          <p style={{ color: "var(--bg-muted)" }}>Chargement…</p>
+          <p style={{ color: "var(--text-muted)" }}>Chargement…</p>
         </div>
       </div>
     );
@@ -81,7 +81,7 @@ export default function GroupPage() {
 
       {/* Membres */}
       <section>
-        <h2 className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+        <h2 className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
           Membres
         </h2>
         <div className="flex flex-col gap-2">
@@ -110,7 +110,7 @@ export default function GroupPage() {
 
       {/* Actions */}
       <section>
-        <h2 className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+        <h2 className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
           Lancer une activité
         </h2>
         <div className="grid grid-cols-2 gap-3">

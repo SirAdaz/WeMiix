@@ -64,7 +64,7 @@ export default function MiniJeuxPage({ params }: { params: Promise<{ id: string 
   return (
     <main className="px-4 pt-6 max-w-lg mx-auto">
       <div className="mb-6">
-        <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
           Mini-jeux
         </p>
         <h1 className="text-xl font-black" style={{ color: "var(--light)" }}>
@@ -109,7 +109,7 @@ function GameLobby({ onSelect }: { onSelect: (g: GameId | "lobby" | "scores") =>
   if (countdown !== null && countdown > 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 gap-4">
-        <p className="text-sm font-semibold" style={{ color: "var(--bg-muted)" }}>Prêts ?</p>
+        <p className="text-sm font-semibold" style={{ color: "var(--text-muted)" }}>Prêts ?</p>
         <p className="text-8xl font-black" style={{ color: "var(--pink)" }}>{countdown}</p>
       </div>
     );
@@ -121,7 +121,7 @@ function GameLobby({ onSelect }: { onSelect: (g: GameId | "lobby" | "scores") =>
     <div className="flex flex-col gap-5">
       {/* Joueurs */}
       <div className="flex flex-col gap-2">
-        <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
           Joueurs
         </p>
         {players.map((p) => (
@@ -136,7 +136,7 @@ function GameLobby({ onSelect }: { onSelect: (g: GameId | "lobby" | "scores") =>
               className="text-xs font-bold px-2.5 py-1 rounded-full"
               style={{
                 background: p.isReady ? "rgba(39,233,101,0.2)" : "rgba(59,82,101,0.4)",
-                color: p.isReady ? "var(--green)" : "var(--bg-muted)",
+                color: p.isReady ? "var(--green)" : "var(--text-muted)",
               }}
             >
               {p.isReady ? "✓ Prêt" : "Attente…"}
@@ -154,7 +154,7 @@ function GameLobby({ onSelect }: { onSelect: (g: GameId | "lobby" | "scores") =>
 
       {/* Sélection du jeu */}
       <div>
-        <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
           Choisir un jeu
         </p>
         <div className="flex flex-col gap-3">
@@ -187,7 +187,7 @@ function GameLobby({ onSelect }: { onSelect: (g: GameId | "lobby" | "scores") =>
       </div>
 
       {!allReady && (
-        <p className="text-xs text-center" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>
           Attends que tout le monde soit prêt pour lancer une partie
         </p>
       )}
@@ -220,10 +220,10 @@ function GameCard({
       <span className="text-3xl">{emoji}</span>
       <div className="flex-1 min-w-0">
         <p className="font-bold text-sm" style={{ color: accent }}>{title}</p>
-        <p className="text-xs" style={{ color: "var(--bg-muted)" }}>{description}</p>
+        <p className="text-xs" style={{ color: "var(--text-muted)" }}>{description}</p>
       </div>
       {soon ? (
-        <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: "rgba(59,82,101,0.4)", color: "var(--bg-muted)" }}>
+        <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: "rgba(59,82,101,0.4)", color: "var(--text-muted)" }}>
           Bientôt
         </span>
       ) : (
@@ -309,7 +309,7 @@ function NameThatTune({ onBack }: { onBack: () => void }) {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
-        <button onClick={onBack} className="text-sm" style={{ color: "var(--bg-muted)" }}>← Quitter</button>
+        <button onClick={onBack} className="text-sm" style={{ color: "var(--text-muted)" }}>← Quitter</button>
         <span className="font-bold text-sm" style={{ color: "var(--light)" }}>Manche {round + 1}/{MOCK_TUNES.length}</span>
         <span className="font-black" style={{ color: "var(--green)" }}>{score} pts</span>
       </div>
@@ -323,8 +323,8 @@ function NameThatTune({ onBack }: { onBack: () => void }) {
         {revealed && (
           <div className="text-center mt-2">
             <p className="font-black" style={{ color: "var(--green)" }}>{current.title}</p>
-            <p className="text-sm" style={{ color: "var(--bg-muted)" }}>{current.artist}</p>
-            <p className="text-xs mt-1" style={{ color: "var(--bg-muted)" }}>{current.hint}</p>
+            <p className="text-sm" style={{ color: "var(--text-muted)" }}>{current.artist}</p>
+            <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>{current.hint}</p>
           </div>
         )}
       </div>
@@ -410,7 +410,7 @@ function MusicQuiz({ onBack }: { onBack: () => void }) {
       <div className="flex flex-col items-center gap-5 py-6">
         <p className="text-4xl">🏆</p>
         <p className="text-xl font-black" style={{ color: "var(--light)" }}>Score : {score} pts</p>
-        <p className="text-sm" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-sm" style={{ color: "var(--text-muted)" }}>
           {score >= questions.length * 40 ? "Excellent ! 🎉" : score >= questions.length * 20 ? "Bien joué 👍" : "Continue de t'entraîner 💪"}
         </p>
         <button onClick={onBack} className="w-full py-3.5 rounded-full font-bold text-white glow-pink" style={{ background: "var(--pink)" }}>
@@ -423,7 +423,7 @@ function MusicQuiz({ onBack }: { onBack: () => void }) {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
-        <button onClick={onBack} className="text-sm" style={{ color: "var(--bg-muted)" }}>← Quitter</button>
+        <button onClick={onBack} className="text-sm" style={{ color: "var(--text-muted)" }}>← Quitter</button>
         <span className="font-bold text-sm" style={{ color: "var(--light)" }}>Q{qIdx + 1}/{questions.length}</span>
         <span className="font-black" style={{ color: "var(--green)" }}>{score} pts</span>
       </div>
@@ -460,7 +460,7 @@ function MusicQuiz({ onBack }: { onBack: () => void }) {
               className="w-full text-left px-4 py-3.5 rounded-xl border font-semibold text-sm transition-all hover:scale-[1.01] disabled:cursor-default"
               style={{ background: bg, borderColor: border, color }}
             >
-              <span className="font-black mr-2" style={{ color: "var(--bg-muted)" }}>
+              <span className="font-black mr-2" style={{ color: "var(--text-muted)" }}>
                 {String.fromCharCode(65 + i)}.
               </span>
               {choice}

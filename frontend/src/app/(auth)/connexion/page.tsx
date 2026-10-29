@@ -102,7 +102,7 @@ export default function ConnexionPage() {
 
         <div className="flex items-center gap-3 my-5">
           <hr className="flex-1" style={{ borderColor: "var(--bg-muted)" }} />
-          <span className="text-xs font-semibold" style={{ color: "var(--bg-muted)" }}>
+          <span className="text-xs font-semibold" style={{ color: "var(--text-muted)" }}>
             ou
           </span>
           <hr className="flex-1" style={{ borderColor: "var(--bg-muted)" }} />
@@ -112,7 +112,7 @@ export default function ConnexionPage() {
           <div>
             <label
               className="text-xs font-semibold mb-1.5 block"
-              style={{ color: "var(--bg-muted)" }}
+              style={{ color: "var(--text-muted)" }}
             >
               Email
             </label>
@@ -134,7 +134,7 @@ export default function ConnexionPage() {
           <div>
             <label
               className="text-xs font-semibold mb-1.5 block"
-              style={{ color: "var(--bg-muted)" }}
+              style={{ color: "var(--text-muted)" }}
             >
               Pseudo
             </label>
@@ -177,7 +177,7 @@ export default function ConnexionPage() {
         <button
           onClick={handleGuest}
           className="text-sm transition-opacity hover:opacity-80"
-          style={{ color: "var(--bg-muted)" }}
+          style={{ color: "var(--text-muted)" }}
         >
           Continuer en mode invité →
         </button>

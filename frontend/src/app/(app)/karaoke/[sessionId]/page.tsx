@@ -87,7 +87,7 @@ export default function KaraokeSessionPage() {
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="text-4xl mb-3 float-anim">🎤</div>
-          <p style={{ color: "var(--bg-muted)" }}>Chargement…</p>
+          <p style={{ color: "var(--text-muted)" }}>Chargement…</p>
         </div>
       </div>
     );
@@ -105,7 +105,7 @@ export default function KaraokeSessionPage() {
         <h1 className="text-2xl font-black" style={{ color: "var(--pink)" }}>
           {session?.songTitle}
         </h1>
-        <p className="text-base font-semibold mt-0.5" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-base font-semibold mt-0.5" style={{ color: "var(--text-muted)" }}>
           {session?.artist}
         </p>
       </div>
@@ -123,7 +123,7 @@ export default function KaraokeSessionPage() {
       {/* Zone paroles */}
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-8 text-center gap-4">
         {lines === null ? (
-          <div style={{ color: "var(--bg-muted)" }}>
+          <div style={{ color: "var(--text-muted)" }}>
             <p className="text-4xl mb-4">🎵</p>
             <p className="font-semibold text-lg">Paroles non disponibles</p>
             <p className="text-sm mt-2">Profite quand même de la musique !</p>
@@ -144,7 +144,7 @@ export default function KaraokeSessionPage() {
               <p
                 key={i}
                 className="text-base font-semibold"
-                style={{ color: "var(--bg-muted)", opacity: 1 - i * 0.3 }}
+                style={{ color: "var(--text-muted)", opacity: 1 - i * 0.3 }}
               >
                 {line.text}
               </p>
@@ -170,7 +170,7 @@ export default function KaraokeSessionPage() {
           className="flex items-center gap-2 rounded-xl px-4 py-2"
           style={{ background: "var(--bg-card)" }}
         >
-          <span className="text-sm" style={{ color: "var(--bg-muted)" }}>Score groupe</span>
+          <span className="text-sm" style={{ color: "var(--text-muted)" }}>Score groupe</span>
           <span className="font-black text-lg" style={{ color: "var(--green)" }}>{score}</span>
         </div>
       </div>

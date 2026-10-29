@@ -148,7 +148,7 @@ export default function BlindTestPage({ params }: { params: Promise<{ id: string
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
             Blind Test
           </p>
           <h1 className="text-xl font-black" style={{ color: "var(--light)" }}>
@@ -157,7 +157,7 @@ export default function BlindTestPage({ params }: { params: Promise<{ id: string
         </div>
         {view === "playing" && (
           <div className="text-right">
-            <p className="text-xs" style={{ color: "var(--bg-muted)" }}>Manche</p>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>Manche</p>
             <p className="font-black" style={{ color: "var(--light)" }}>{round}/{totalRounds}</p>
           </div>
         )}
@@ -168,7 +168,7 @@ export default function BlindTestPage({ params }: { params: Promise<{ id: string
         <div className="flex flex-col gap-5">
           {/* Genres */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--text-muted)" }}>
               Genre
             </p>
             <div className="flex flex-wrap gap-2">
@@ -180,7 +180,7 @@ export default function BlindTestPage({ params }: { params: Promise<{ id: string
                   style={{
                     background: genre === g.value ? "var(--pink)" : "transparent",
                     borderColor: genre === g.value ? "var(--pink)" : "var(--bg-muted)",
-                    color: genre === g.value ? "#fff" : "var(--bg-muted)",
+                    color: genre === g.value ? "#fff" : "var(--text-muted)",
                   }}
                 >
                   {g.label}
@@ -191,12 +191,12 @@ export default function BlindTestPage({ params }: { params: Promise<{ id: string
 
           {/* Années */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--text-muted)" }}>
               Période : {yearFrom} — {yearTo}
             </p>
             <div className="flex gap-3">
               <div className="flex-1">
-                <label className="text-xs" style={{ color: "var(--bg-muted)" }}>De</label>
+                <label className="text-xs" style={{ color: "var(--text-muted)" }}>De</label>
                 <input
                   type="range"
                   min={1960}
@@ -207,7 +207,7 @@ export default function BlindTestPage({ params }: { params: Promise<{ id: string
                 />
               </div>
               <div className="flex-1">
-                <label className="text-xs" style={{ color: "var(--bg-muted)" }}>À</label>
+                <label className="text-xs" style={{ color: "var(--text-muted)" }}>À</label>
                 <input
                   type="range"
                   min={1960}
@@ -222,7 +222,7 @@ export default function BlindTestPage({ params }: { params: Promise<{ id: string
 
           {/* Difficulté */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--text-muted)" }}>
               Difficulté
             </p>
             <div className="flex gap-2">
@@ -234,14 +234,14 @@ export default function BlindTestPage({ params }: { params: Promise<{ id: string
                   style={{
                     background: difficulty === d ? "var(--green)" : "transparent",
                     borderColor: difficulty === d ? "var(--green)" : "var(--bg-muted)",
-                    color: difficulty === d ? "var(--bg-deep)" : "var(--bg-muted)",
+                    color: difficulty === d ? "var(--bg-deep)" : "var(--text-muted)",
                   }}
                 >
                   {d === "easy" ? "😊 Facile" : d === "normal" ? "😤 Normal" : "🔥 Difficile"}
                 </button>
               ))}
             </div>
-            <p className="text-xs mt-1" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
               {TIMER_BY_DIFFICULTY[difficulty]}s par manche · Plus vite = plus de points
             </p>
           </div>
@@ -262,7 +262,7 @@ export default function BlindTestPage({ params }: { params: Promise<{ id: string
         <div className="flex flex-col gap-5">
           {/* Timer */}
           <div>
-            <div className="flex justify-between text-xs mb-1" style={{ color: "var(--bg-muted)" }}>
+            <div className="flex justify-between text-xs mb-1" style={{ color: "var(--text-muted)" }}>
               <span>Temps restant</span>
               <span
                 className="font-black"
@@ -290,7 +290,7 @@ export default function BlindTestPage({ params }: { params: Promise<{ id: string
             <div className="w-20 h-20 rounded-full flex items-center justify-center" style={{ background: "var(--bg-deep)" }}>
               <span className="text-4xl">🎧</span>
             </div>
-            <div className="flex items-center gap-3 text-sm" style={{ color: "var(--bg-muted)" }}>
+            <div className="flex items-center gap-3 text-sm" style={{ color: "var(--text-muted)" }}>
               <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
               Écoute…
             </div>
@@ -330,7 +330,7 @@ export default function BlindTestPage({ params }: { params: Promise<{ id: string
             {players.map((p) => (
               <div key={p.id} className="flex-1 flex flex-col items-center gap-1">
                 <span className="text-xl">{p.avatar}</span>
-                <span className="text-[10px] font-semibold" style={{ color: p.answered ? "var(--green)" : "var(--bg-muted)" }}>
+                <span className="text-[10px] font-semibold" style={{ color: p.answered ? "var(--green)" : "var(--text-muted)" }}>
                   {p.answered ? "✓" : "…"}
                 </span>
               </div>
@@ -345,7 +345,7 @@ export default function BlindTestPage({ params }: { params: Promise<{ id: string
           <div className="text-5xl">{players[0].correct ? "🎉" : "😅"}</div>
           <div>
             <p className="text-xl font-black" style={{ color: "var(--light)" }}>{currentTrack.title}</p>
-            <p className="text-base" style={{ color: "var(--bg-muted)" }}>{currentTrack.artist} · {currentTrack.year}</p>
+            <p className="text-base" style={{ color: "var(--text-muted)" }}>{currentTrack.artist} · {currentTrack.year}</p>
           </div>
           <div className="w-full flex flex-col gap-2">
             {players

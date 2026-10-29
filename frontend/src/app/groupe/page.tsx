@@ -55,7 +55,7 @@ export default function GroupePage() {
         >
           <div className="text-4xl">🎉</div>
           <div className="text-center">
-            <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "var(--text-muted)" }}>
               Groupe créé !
             </p>
             <h1 className="text-2xl font-black" style={{ color: "var(--light)" }}>
@@ -68,7 +68,7 @@ export default function GroupePage() {
 
           {/* Code invite */}
           <div className="w-full rounded-xl p-4 border text-center" style={{ borderColor: "var(--bg-muted)", background: "var(--bg-deep)" }}>
-            <p className="text-xs font-semibold mb-1" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-xs font-semibold mb-1" style={{ color: "var(--text-muted)" }}>
               Code d&apos;invitation
             </p>
             <p className="text-3xl font-black tracking-[0.3em]" style={{ color: "var(--green)" }}>
@@ -113,7 +113,7 @@ export default function GroupePage() {
             <h1 className="text-xl font-black text-center" style={{ color: "var(--light)" }}>
               Rejoins la fête 🎉
             </h1>
-            <p className="text-sm text-center" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-sm text-center" style={{ color: "var(--text-muted)" }}>
               Lance une session ou rejoins un groupe existant
             </p>
 
@@ -138,7 +138,7 @@ export default function GroupePage() {
             <Link
               href="/connexion"
               className="text-center text-xs underline"
-              style={{ color: "var(--bg-muted)" }}
+              style={{ color: "var(--text-muted)" }}
             >
               Se connecter / Créer un compte
             </Link>
@@ -151,7 +151,7 @@ export default function GroupePage() {
               type="button"
               onClick={() => { setStep("choice"); setError(""); }}
               className="text-sm self-start flex items-center gap-1"
-              style={{ color: "var(--bg-muted)" }}
+              style={{ color: "var(--text-muted)" }}
             >
               ← Retour
             </button>
@@ -159,7 +159,7 @@ export default function GroupePage() {
               Nouveau groupe
             </h2>
             <div>
-              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--bg-muted)" }}>
+              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--text-muted)" }}>
                 Nom du groupe
               </label>
               <input
@@ -199,7 +199,7 @@ export default function GroupePage() {
               type="button"
               onClick={() => { setStep("choice"); setError(""); }}
               className="text-sm self-start flex items-center gap-1"
-              style={{ color: "var(--bg-muted)" }}
+              style={{ color: "var(--text-muted)" }}
             >
               ← Retour
             </button>
@@ -207,7 +207,7 @@ export default function GroupePage() {
               Rejoindre un groupe
             </h2>
             <div>
-              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--bg-muted)" }}>
+              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--text-muted)" }}>
                 Code du groupe
               </label>
               <input
@@ -225,7 +225,7 @@ export default function GroupePage() {
               />
             </div>
 
-            <p className="text-xs text-center" style={{ color: "var(--bg-muted)" }}>
+            <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>
               Ou scanne le QR code de l&apos;hôte
             </p>
 

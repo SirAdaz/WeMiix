@@ -135,7 +135,7 @@ export default function PlaylistPage({ params }: { params: Promise<{ id: string 
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--bg-muted)" }}>
+          <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
             Playlist collab
           </p>
           <h1 className="text-xl font-black" style={{ color: "var(--light)" }}>
@@ -143,7 +143,7 @@ export default function PlaylistPage({ params }: { params: Promise<{ id: string 
           </h1>
         </div>
         <div className="text-right">
-          <p className="text-xs" style={{ color: "var(--bg-muted)" }}>Tes ajouts</p>
+          <p className="text-xs" style={{ color: "var(--text-muted)" }}>Tes ajouts</p>
           <p className="font-black" style={{ color: myAdds >= MAX_ADDS_PER_PERSON ? "var(--pink)" : "var(--green)" }}>
             {myAdds}/{MAX_ADDS_PER_PERSON}
           </p>
@@ -194,7 +194,7 @@ export default function PlaylistPage({ params }: { params: Promise<{ id: string 
           <span className="text-2xl">💿</span>
           <div className="flex-1 min-w-0">
             <p className="font-bold text-sm truncate" style={{ color: "var(--light)" }}>{searchResult.title}</p>
-            <p className="text-xs" style={{ color: "var(--bg-muted)" }}>{searchResult.artist}</p>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>{searchResult.artist}</p>
           </div>
           <button
             onClick={addTrack}
@@ -207,7 +207,7 @@ export default function PlaylistPage({ params }: { params: Promise<{ id: string 
       )}
 
       {/* Règles */}
-      <div className="text-xs mb-4 px-3 py-2 rounded-xl" style={{ background: "rgba(255,41,105,0.08)", color: "var(--bg-muted)" }}>
+      <div className="text-xs mb-4 px-3 py-2 rounded-xl" style={{ background: "rgba(255,41,105,0.08)", color: "var(--text-muted)" }}>
         📋 Max {MAX_ADDS_PER_PERSON} ajouts · Pas de doublons · Classement auto par votes ·{" "}
         <span style={{ color: "var(--pink)" }}>Score &lt; {AUTO_REMOVE_THRESHOLD} = suppression auto</span>
       </div>
@@ -250,7 +250,7 @@ function TrackRow({
       {/* Position */}
       <span
         className="w-6 text-center font-black text-sm"
-        style={{ color: position === 1 ? "var(--green)" : "var(--bg-muted)" }}
+        style={{ color: position === 1 ? "var(--green)" : "var(--text-muted)" }}
       >
         {position}
       </span>
@@ -260,7 +260,7 @@ function TrackRow({
         <p className="font-bold text-sm truncate" style={{ color: "var(--light)" }}>
           {track.title}
         </p>
-        <p className="text-xs" style={{ color: "var(--bg-muted)" }}>
+        <p className="text-xs" style={{ color: "var(--text-muted)" }}>
           {track.artist} · {track.addedByAvatar} {track.addedBy}
         </p>
       </div>
@@ -280,7 +280,7 @@ function TrackRow({
           className="w-8 h-8 rounded-lg flex items-center justify-center text-sm transition-all hover:scale-110"
           style={{
             background: track.myVote === "up" ? "rgba(39,233,101,0.2)" : "transparent",
-            color: track.myVote === "up" ? "var(--green)" : "var(--bg-muted)",
+            color: track.myVote === "up" ? "var(--green)" : "var(--text-muted)",
           }}
         >
           ▲
@@ -290,7 +290,7 @@ function TrackRow({
           className="w-8 h-8 rounded-lg flex items-center justify-center text-sm transition-all hover:scale-110"
           style={{
             background: track.myVote === "down" ? "rgba(255,41,105,0.2)" : "transparent",
-            color: track.myVote === "down" ? "var(--pink)" : "var(--bg-muted)",
+            color: track.myVote === "down" ? "var(--pink)" : "var(--text-muted)",
           }}
         >
           ▼
@@ -299,7 +299,7 @@ function TrackRow({
           <button
             onClick={onRemove}
             className="w-8 h-8 rounded-lg flex items-center justify-center text-sm"
-            style={{ color: "var(--bg-muted)" }}
+            style={{ color: "var(--text-muted)" }}
           >
             ✕
           </button>
