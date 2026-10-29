@@ -114,9 +114,14 @@ public class GroupService {
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Groupe introuvable pour le code : " + inviteCode));
     }
 
-    public void deactivateGroup(Long groupId) {
+    /** Seul l'hôte peut fermer son groupe. */
+    public void deactivateGroup(Long groupId, Long requesterId) {
         Group group = groupRepository.findById(groupId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Groupe introuvable : " + groupId));
+        boolean isHost = group.getHost() != null && group.getHost().getId().equals(requesterId);
+        if (!isHost) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Seul l'hôte peut fermer ce groupe");
+        }
         group.setActive(false);
         groupRepository.save(group);
     }
