@@ -1,6 +1,7 @@
 "use client";
 
 import { use, useEffect, useRef, useState } from "react";
+import SoundBars from "@/components/SoundBars";
 
 type Genre = "all" | "rap" | "pop" | "rock" | "electro" | "rnb" | "variete";
 type Difficulty = "easy" | "normal" | "hard";
@@ -294,20 +295,7 @@ export default function BlindTestPage({ params }: { params: Promise<{ id: string
               Écoute…
             </div>
             {/* Barre de son animée */}
-            <div className="flex items-end gap-1 h-8">
-              {Array.from({ length: 12 }, (_, i) => (
-                <div
-                  key={i}
-                  className="w-1.5 rounded-full"
-                  style={{
-                    background: "var(--green)",
-                    height: `${Math.random() * 100}%`,
-                    animation: `grow ${0.3 + Math.random() * 0.5}s ease-in-out infinite alternate`,
-                    opacity: 0.7,
-                  }}
-                />
-              ))}
-            </div>
+            <SoundBars count={12} color="var(--green)" isAnimated className="h-8" />
           </div>
 
           {/* Saisie de réponse */}

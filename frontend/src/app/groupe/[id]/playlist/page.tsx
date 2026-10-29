@@ -76,7 +76,7 @@ export default function PlaylistPage({ params }: { params: Promise<{ id: string 
     }
 
     const newTrack: PlaylistTrack = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       title: searchResult.title,
       artist: searchResult.artist,
       addedBy: "Toi",
