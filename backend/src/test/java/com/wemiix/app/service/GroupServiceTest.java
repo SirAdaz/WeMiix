@@ -1,6 +1,7 @@
 package com.wemiix.app.service;
 
 import com.wemiix.app.model.Group;
+import com.wemiix.app.model.GroupMember;
 import com.wemiix.app.model.User;
 import com.wemiix.app.model.UserMode;
 import com.wemiix.app.repository.GroupMemberRepository;
@@ -29,6 +30,7 @@ class GroupServiceTest {
 
     private GroupRepository groupRepository;
     private UserRepository userRepository;
+    private GroupMemberRepository groupMemberRepository;
     private GroupService groupService;
     private User host;
 
@@ -36,7 +38,8 @@ class GroupServiceTest {
     void setUp() {
         groupRepository = mock(GroupRepository.class);
         userRepository = mock(UserRepository.class);
-        groupService = new GroupService(groupRepository, mock(GroupMemberRepository.class),
+        groupMemberRepository = mock(GroupMemberRepository.class);
+        groupService = new GroupService(groupRepository, groupMemberRepository,
                 userRepository, "http://localhost:3000");
         host = mock(User.class);
         when(host.getId()).thenReturn(HOST_ID);
@@ -78,5 +81,39 @@ class GroupServiceTest {
 
         verify(groupRepository).save(group);
         assertEquals(false, group.isActive());
+    }
+
+    @Test
+    void joiningTwiceReturnsTheExistingMembership() {
+        Group group = new Group();
+        group.setActive(true);
+        GroupMember existing = new GroupMember();
+        when(groupRepository.findByInviteCode("ABC123")).thenReturn(Optional.of(group));
+        when(groupMemberRepository.findByGroupIdAndUserId(group.getId(), HOST_ID)).thenReturn(Optional.of(existing));
+
+        GroupMember member = groupService.joinGroup("ABC123", HOST_ID, null);
+
+        assertSame(existing, member);
+        verify(groupMemberRepository, never()).save(any(GroupMember.class));
+    }
+
+    @Test
+    void nonMemberCannotReadTheGroup() {
+        when(groupRepository.findById(GROUP_ID)).thenReturn(Optional.of(new Group()));
+        when(groupMemberRepository.findByGroupIdAndUserId(GROUP_ID, 99L)).thenReturn(Optional.empty());
+
+        ResponseStatusException error = assertThrows(ResponseStatusException.class,
+                () -> groupService.getGroupForMember(GROUP_ID, 99L));
+
+        assertEquals(HttpStatus.FORBIDDEN, error.getStatusCode());
+    }
+
+    @Test
+    void memberCanReadTheGroup() {
+        Group group = new Group();
+        when(groupRepository.findById(GROUP_ID)).thenReturn(Optional.of(group));
+        when(groupMemberRepository.findByGroupIdAndUserId(GROUP_ID, HOST_ID)).thenReturn(Optional.of(new GroupMember()));
+
+        assertSame(group, groupService.getGroupForMember(GROUP_ID, HOST_ID));
     }
 }

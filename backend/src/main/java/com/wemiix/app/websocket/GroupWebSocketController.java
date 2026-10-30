@@ -1,6 +1,7 @@
 package com.wemiix.app.websocket;
 
-import com.wemiix.app.model.GroupMember;
+import com.wemiix.app.dto.GroupViews;
+import com.wemiix.app.dto.GroupViews.MemberView;
 import com.wemiix.app.service.GroupService;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -26,7 +27,7 @@ public class GroupWebSocketController {
     @MessageMapping("/group/{groupId}/join")
     public void handleJoin(@DestinationVariable Long groupId,
                            @Payload JoinEventPayload payload) {
-        List<GroupMember> members = groupService.getGroupMembers(groupId);
+        List<MemberView> members = groupService.getGroupMembers(groupId).stream().map(GroupViews::of).toList();
         messagingTemplate.convertAndSend(
             "/topic/group/" + groupId + "/members",
             members

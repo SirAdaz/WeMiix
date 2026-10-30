@@ -1,5 +1,9 @@
 package com.wemiix.app.controller;
 
+import com.wemiix.app.dto.GroupViews;
+import com.wemiix.app.dto.GroupViews.GroupView;
+import com.wemiix.app.dto.GroupViews.JoinView;
+import com.wemiix.app.dto.GroupViews.MemberView;
 import com.wemiix.app.model.Group;
 import com.wemiix.app.model.GroupMember;
 import com.wemiix.app.model.UserMode;
@@ -30,31 +34,38 @@ public class GroupController {
 
     /** L'hôte est l'utilisateur authentifié par le JWT, jamais une valeur du corps de la requête. */
     @PostMapping
-    public ResponseEntity<Group> createGroup(@RequestBody CreateGroupRequest request, Authentication authentication) {
+    public ResponseEntity<GroupView> createGroup(@RequestBody CreateGroupRequest request, Authentication authentication) {
         UserMode mode = parseMode(request.mode());
         Group group = groupService.createGroup(request.name(), mode, currentUserId(authentication));
-        return ResponseEntity.status(HttpStatus.CREATED).body(group);
+        return ResponseEntity.status(HttpStatus.CREATED).body(GroupViews.of(group));
     }
 
     @PostMapping("/{inviteCode}/join")
-    public ResponseEntity<GroupMember> joinGroup(
+    public ResponseEntity<JoinView> joinGroup(
             @PathVariable String inviteCode,
             @RequestBody(required = false) JoinGroupRequest request,
             Authentication authentication) {
         GroupMember member = groupService.joinGroup(inviteCode, currentUserId(authentication), null);
-        return ResponseEntity.status(HttpStatus.CREATED).body(member);
+        return ResponseEntity.status(HttpStatus.CREATED).body(GroupViews.joined(member));
     }
 
     @GetMapping("/{inviteCode}")
-    public ResponseEntity<Group> getGroup(@PathVariable String inviteCode) {
+    public ResponseEntity<GroupView> getGroup(@PathVariable String inviteCode) {
         Group group = groupService.getGroupByInviteCode(inviteCode);
-        return ResponseEntity.ok(group);
+        return ResponseEntity.ok(GroupViews.of(group));
+    }
+
+    /** Page d'un groupe : groupe et membres, réservés aux membres. */
+    @GetMapping("/{groupId}/overview")
+    public ResponseEntity<GroupView> getGroupOverview(@PathVariable Long groupId, Authentication authentication) {
+        Group group = groupService.getGroupForMember(groupId, currentUserId(authentication));
+        return ResponseEntity.ok(GroupViews.of(group, groupService.getGroupMembers(groupId)));
     }
 
     @GetMapping("/{groupId}/members")
-    public ResponseEntity<List<GroupMember>> getGroupMembers(@PathVariable Long groupId) {
-        List<GroupMember> members = groupService.getGroupMembers(groupId);
-        return ResponseEntity.ok(members);
+    public ResponseEntity<List<MemberView>> getGroupMembers(@PathVariable Long groupId, Authentication authentication) {
+        groupService.getGroupForMember(groupId, currentUserId(authentication));
+        return ResponseEntity.ok(groupService.getGroupMembers(groupId).stream().map(GroupViews::of).toList());
     }
 
     @DeleteMapping("/{groupId}")

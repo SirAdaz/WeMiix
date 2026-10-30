@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.SecureRandom;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -71,6 +72,7 @@ public class GroupService {
         return saved;
     }
 
+    /** Joindre deux fois le même lien ramène au groupe au lieu d échouer : l hôte peut ouvrir son propre lien. */
     public GroupMember joinGroup(String inviteCode, Long userId, String guestName) {
         Group group = groupRepository.findByInviteCode(inviteCode)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Groupe introuvable pour le code : " + inviteCode));
@@ -80,9 +82,10 @@ public class GroupService {
         }
 
         if (userId != null) {
-            groupMemberRepository.findByGroupIdAndUserId(group.getId(), userId).ifPresent(existing -> {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "L'utilisateur est déjà membre de ce groupe");
-            });
+            Optional<GroupMember> existing = groupMemberRepository.findByGroupIdAndUserId(group.getId(), userId);
+            if (existing.isPresent()) {
+                return existing.get();
+            }
         }
 
         GroupMember member = new GroupMember();
@@ -98,6 +101,18 @@ public class GroupService {
         }
 
         return groupMemberRepository.save(member);
+    }
+
+    /** Réservé aux membres du groupe. */
+    @Transactional(readOnly = true)
+    public Group getGroupForMember(Long groupId, Long userId) {
+        Group group = groupRepository.findById(groupId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Groupe introuvable : " + groupId));
+        boolean isMember = userId != null && groupMemberRepository.findByGroupIdAndUserId(groupId, userId).isPresent();
+        if (!isMember) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Tu ne fais pas partie de ce groupe");
+        }
+        return group;
     }
 
     @Transactional(readOnly = true)

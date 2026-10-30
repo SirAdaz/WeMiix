@@ -5,19 +5,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
-
-interface Member {
-  id: string;
-  name: string;
-  role: "host" | "guest";
-}
-
-interface Group {
-  id: string;
-  name: string;
-  code: string;
-  members: Member[];
-}
+import { getGroupOverview, type Group } from "@/lib/api";
 
 const ACTION_BUTTONS = [
   { emoji: "🎤", label: "Lancer Karaoké", href: "/karaoke", accent: "var(--green)" as const },
@@ -30,28 +18,13 @@ export default function GroupPage() {
   const { groupId } = useParams<{ groupId: string }>();
   const [group, setGroup] = useState<Group | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchGroup = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080"}/api/groups/${groupId}`);
-        if (!res.ok) throw new Error("Groupe introuvable");
-        const data = (await res.json()) as Group;
-        setGroup(data);
-      } catch {
-        setGroup({
-          id: groupId,
-          name: "Ma session",
-          code: "ABC123",
-          members: [
-            { id: "1", name: "Toi", role: "host" },
-          ],
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchGroup();
+    getGroupOverview(groupId)
+      .then(setGroup)
+      .catch((err: unknown) => setError(err instanceof Error ? err.message : "Groupe introuvable"))
+      .finally(() => setLoading(false));
   }, [groupId]);
 
   if (loading) {
@@ -65,6 +38,21 @@ export default function GroupPage() {
     );
   }
 
+  if (error || !group) {
+    return (
+      <div className="px-4 py-8 max-w-md mx-auto text-center flex flex-col gap-4">
+        <p role="alert" className="text-sm font-semibold rounded-xl p-3" style={{ background: "rgba(255,41,105,0.15)", color: "var(--pink)" }}>
+          {error ?? "Groupe introuvable"}
+        </p>
+        <Link href="/groups/join">
+          <Button variant="secondary" size="md" className="w-full justify-center">Rejoindre avec un code</Button>
+        </Link>
+      </div>
+    );
+  }
+
+  const members = group.members ?? [];
+
   return (
     <div className="px-4 py-6 max-w-lg mx-auto flex flex-col gap-6">
       {/* En-tête */}
@@ -72,10 +60,10 @@ export default function GroupPage() {
         className="rounded-2xl p-5 border text-center"
         style={{ background: "var(--bg-card)", borderColor: "var(--bg-muted)" }}
       >
-        <h1 className="text-2xl font-black text-light mb-1">{group?.name}</h1>
+        <h1 className="text-2xl font-black text-light mb-1">{group.name}</h1>
         <div className="flex items-center justify-center gap-2">
-          <Badge variant="muted">Code : {group?.code}</Badge>
-          <Badge variant="green">{group?.members.length ?? 0} membre{(group?.members.length ?? 0) > 1 ? "s" : ""}</Badge>
+          <Badge variant="muted">Code : {group.code}</Badge>
+          <Badge variant="green">{members.length} membre{members.length > 1 ? "s" : ""}</Badge>
         </div>
       </div>
 
@@ -85,7 +73,7 @@ export default function GroupPage() {
           Membres
         </h2>
         <div className="flex flex-col gap-2">
-          {group?.members.map((member) => (
+          {members.map((member) => (
             <div
               key={member.id}
               className="flex items-center justify-between rounded-xl px-4 py-3 border"
