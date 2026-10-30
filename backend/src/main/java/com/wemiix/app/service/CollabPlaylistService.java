@@ -1,6 +1,7 @@
 package com.wemiix.app.service;
 
 import com.wemiix.app.model.CollabPlaylist;
+import com.wemiix.app.model.GroupMember;
 import com.wemiix.app.model.PlaylistTrack;
 import com.wemiix.app.model.PlaylistVote;
 import com.wemiix.app.repository.CollabPlaylistRepository;
@@ -26,14 +27,55 @@ public class CollabPlaylistService {
     private final CollabPlaylistRepository playlistRepository;
     private final PlaylistTrackRepository trackRepository;
     private final PlaylistVoteRepository voteRepository;
+    private final GroupAccessService groupAccess;
 
     public CollabPlaylistService(
             CollabPlaylistRepository playlistRepository,
             PlaylistTrackRepository trackRepository,
-            PlaylistVoteRepository voteRepository) {
+            PlaylistVoteRepository voteRepository,
+            GroupAccessService groupAccess) {
         this.playlistRepository = playlistRepository;
         this.trackRepository = trackRepository;
         this.voteRepository = voteRepository;
+        this.groupAccess = groupAccess;
+    }
+
+    /** Membre du groupe demandé, sinon 403 : sert avant de créer une playlist. */
+    @Transactional(readOnly = true)
+    public GroupMember requireMemberOfGroup(Long groupId, Long userId) {
+        return groupAccess.requireMember(groupId, userId);
+    }
+
+    /** Membre du groupe qui possède la playlist, sinon 403 (404 si la playlist n'existe pas). */
+    @Transactional(readOnly = true)
+    public GroupMember requireMemberOfPlaylist(Long playlistId, Long userId) {
+        CollabPlaylist playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Playlist introuvable : " + playlistId));
+        return groupAccess.requireMember(playlist.getGroupId(), userId);
+    }
+
+    /** Membre du groupe qui possède la playlist du morceau, sinon 403 (404 si le morceau n'existe pas). */
+    @Transactional(readOnly = true)
+    public GroupMember requireMemberOfTrack(Long trackId, Long userId) {
+        PlaylistTrack track = trackRepository.findById(trackId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Morceau introuvable : " + trackId));
+        return groupAccess.requireMember(track.getPlaylist().getGroupId(), userId);
+    }
+
+    /** Retire un morceau : réservé à l'hôte du groupe et à celui qui l'a ajouté. */
+    public void removeTrack(Long trackId, GroupMember requester) {
+        PlaylistTrack track = trackRepository.findById(trackId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Morceau introuvable : " + trackId));
+        boolean isAuthor = requester.getId().equals(track.getAddedByMemberId());
+        if (!isAuthor && !groupAccess.isHost(requester)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "Seuls l'hôte et l'auteur peuvent retirer ce morceau");
+        }
+        track.setActive(false);
+        trackRepository.save(track);
     }
 
     public CollabPlaylist createPlaylist(Long groupId, String name) {

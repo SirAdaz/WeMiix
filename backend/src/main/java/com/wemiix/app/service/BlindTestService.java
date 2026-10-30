@@ -1,6 +1,7 @@
 package com.wemiix.app.service;
 
 import com.wemiix.app.model.BlindTestGame;
+import com.wemiix.app.model.GroupMember;
 import com.wemiix.app.model.BlindTestQuestion;
 import com.wemiix.app.repository.BlindTestGameRepository;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,21 @@ public class BlindTestService {
     private static final int[] SCORE_TABLE = {100, 75, 50, 25, 10};
 
     private final BlindTestGameRepository repository;
+    private final GroupAccessService groupAccess;
 
-    public BlindTestService(BlindTestGameRepository repository) {
+    public BlindTestService(BlindTestGameRepository repository, GroupAccessService groupAccess) {
         this.repository = repository;
+        this.groupAccess = groupAccess;
+    }
+
+    /** Membre du groupe de la partie, sinon 403 (404 si la partie n'existe pas). */
+    public GroupMember requireMemberOfGame(String gameId, Long userId) {
+        return groupAccess.requireMember(getGame(gameId).getGroupId(), userId);
+    }
+
+    /** Membre du groupe demandé, sinon 403 : sert avant de créer une partie. */
+    public GroupMember requireMemberOfGroup(Long groupId, Long userId) {
+        return groupAccess.requireMember(groupId, userId);
     }
 
     public BlindTestGame createGame(Long groupId, BlindTestGame.Mode mode, String genre, Integer year) {

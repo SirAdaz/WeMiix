@@ -1,5 +1,6 @@
 package com.wemiix.app.service;
 
+import com.wemiix.app.model.GroupMember;
 import com.wemiix.app.model.KaraokeSession;
 import com.wemiix.app.model.LyricsResult;
 import com.wemiix.app.repository.KaraokeSessionRepository;
@@ -17,10 +18,28 @@ public class KaraokeService {
 
     private final KaraokeSessionRepository repository;
     private final LyricsService lyricsService;
+    private final GroupAccessService groupAccess;
 
-    public KaraokeService(KaraokeSessionRepository repository, LyricsService lyricsService) {
+    public KaraokeService(KaraokeSessionRepository repository, LyricsService lyricsService,
+                          GroupAccessService groupAccess) {
         this.repository = repository;
         this.lyricsService = lyricsService;
+        this.groupAccess = groupAccess;
+    }
+
+    /** Membre du groupe de la session, sinon 403 (404 si la session n'existe pas). */
+    public GroupMember requireMemberOfSession(String sessionId, Long userId) {
+        return groupAccess.requireMember(getSession(sessionId).getGroupId(), userId);
+    }
+
+    /** Membre du groupe demandé, sinon 403 : sert avant de créer une session. */
+    public GroupMember requireMemberOfGroup(Long groupId, Long userId) {
+        return groupAccess.requireMember(groupId, userId);
+    }
+
+    /** Le vote ne peut désigner qu'un membre du groupe de la session. */
+    public void requireCandidateInGroup(String sessionId, String candidateId) {
+        groupAccess.requireMemberOfGroup(getSession(sessionId).getGroupId(), candidateId);
     }
 
     public KaraokeSession startSession(Long groupId, String trackId, String trackName, String artistName) {
