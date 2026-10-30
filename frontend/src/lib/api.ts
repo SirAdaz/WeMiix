@@ -1,3 +1,5 @@
+import { fetchWithAuth } from "@/lib/auth";
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
 
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
@@ -14,26 +16,56 @@ async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
 
 // ── Groupes ─────────────────────────────────────────────────────────────────
 
-export interface Group {
-  id: string;
+export type GroupMode = "adult" | "children";
+
+export interface GroupMember {
+  id: number;
   name: string;
-  code: string;
-  mode: "adult" | "children";
-  inviteLink: string;
+  role: "host" | "guest";
 }
 
-export function createGroup(name: string, mode: "adult" | "children"): Promise<Group> {
-  return apiFetch<Group>("/api/groups", {
+export interface Group {
+  id: number;
+  name: string;
+  code: string;
+  mode: GroupMode;
+  inviteLink: string;
+  /** Présent uniquement sur la page d'un groupe (GET /api/groups/{id}/overview). */
+  members?: GroupMember[];
+}
+
+export interface JoinedGroup {
+  groupId: number;
+  memberId: number;
+  role: "host" | "guest";
+}
+
+/** Appel authentifié (JWT, refresh automatique) : tout /api/groups exige un jeton. */
+async function groupRequest<T>(path: string, fallbackMessage: string, options?: RequestInit): Promise<T> {
+  const res = await fetchWithAuth(path, options);
+  if (!res.ok) {
+    const body = (await res.json().catch(() => ({}))) as { message?: string };
+    throw new Error(body.message ?? fallbackMessage);
+  }
+  return (await res.json()) as T;
+}
+
+export function createGroup(name: string, mode: GroupMode): Promise<Group> {
+  return groupRequest<Group>("/api/groups", "Erreur lors de la création", {
     method: "POST",
     body: JSON.stringify({ name, mode }),
   });
 }
 
-export function joinGroup(code: string, guestName?: string): Promise<{ groupId: string }> {
-  return apiFetch<{ groupId: string }>(`/api/groups/${code}/join`, {
+/** Rejoint un groupe par son code d'invitation ; rejoindre deux fois renvoie le même groupe. */
+export function joinGroup(code: string): Promise<JoinedGroup> {
+  return groupRequest<JoinedGroup>(`/api/groups/${encodeURIComponent(code)}/join`, "Code invalide", {
     method: "POST",
-    body: JSON.stringify({ guestName }),
   });
+}
+
+export function getGroupOverview(groupId: string): Promise<Group> {
+  return groupRequest<Group>(`/api/groups/${encodeURIComponent(groupId)}/overview`, "Groupe introuvable");
 }
 
 // ── Spotify ──────────────────────────────────────────────────────────────────

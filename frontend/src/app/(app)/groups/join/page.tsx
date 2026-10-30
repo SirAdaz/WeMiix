@@ -4,12 +4,12 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import { joinGroup } from "@/lib/api";
 
 function JoinGroupForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [code, setCode] = useState(searchParams.get("code") ?? "");
-  const [pseudo, setPseudo] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,17 +23,8 @@ function JoinGroupForm() {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080"}/api/groups/${code}/join`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ guestName: pseudo || undefined }),
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error((data as { message?: string }).message ?? "Code invalide");
-      }
-      const data = (await res.json()) as { groupId: string };
-      router.push(`/groups/${data.groupId}`);
+      const joined = await joinGroup(code);
+      router.push(`/groups/${joined.groupId}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Une erreur est survenue");
     } finally {
@@ -57,18 +48,6 @@ function JoinGroupForm() {
         <p className="mt-1 text-xs" style={{ color: "var(--text-muted)" }}>
           6 caractères, lettres et chiffres
         </p>
-      </div>
-
-      <div>
-        <label className="block text-sm font-bold mb-2" style={{ color: "var(--light)" }}>
-          Ton pseudo <span style={{ color: "var(--text-muted)" }}>(optionnel)</span>
-        </label>
-        <Input
-          value={pseudo}
-          onChange={(e) => setPseudo(e.target.value.slice(0, 20))}
-          placeholder="Comment t'appelles-tu ?"
-          maxLength={20}
-        />
       </div>
 
       {error && (

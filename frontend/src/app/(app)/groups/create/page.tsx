@@ -3,21 +3,14 @@
 import { useState } from "react";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
-
-type GroupMode = "adult" | "children";
-
-interface CreatedGroup {
-  id: string;
-  code: string;
-  inviteLink: string;
-}
+import { createGroup, type Group, type GroupMode } from "@/lib/api";
 
 export default function CreateGroupPage() {
   const [name, setName] = useState("");
   const [mode, setMode] = useState<GroupMode>("adult");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [created, setCreated] = useState<CreatedGroup | null>(null);
+  const [created, setCreated] = useState<Group | null>(null);
   const [copied, setCopied] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -25,17 +18,7 @@ export default function CreateGroupPage() {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080"}/api/groups`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), mode }),
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error((data as { message?: string }).message ?? "Erreur lors de la création");
-      }
-      const data = (await res.json()) as CreatedGroup;
-      setCreated(data);
+      setCreated(await createGroup(name.trim(), mode));
     } catch (err) {
       setError(err instanceof Error ? err.message : "Une erreur est survenue");
     } finally {
